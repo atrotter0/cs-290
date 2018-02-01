@@ -1,0 +1,124 @@
+/* assignment 2 css */
+
+body {
+  background-image: url('../images/stars-bg.png');
+  font-family: Arial;
+}
+
+.container {
+  width: 100%;
+}
+
+header {
+  height: 140px;
+  width: 100%;
+  background-image: url('../images/star-wars-icons-a.png');
+  background-repeat: no-repeat;
+  background-size: 50%;
+  background-position: top center;
+  background-color: #fff;
+}
+
+nav {
+  text-align: center;
+}
+
+nav ul {
+  list-style-type: none;
+  padding-top: 55px;
+  margin-left: -30px;
+}
+
+nav ul li {
+  display: inline;
+  text-align: center;
+  padding: 10px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #000;
+  border-bottom: 2px solid #000;
+  transition: 1s color, 0.5s border;
+}
+
+nav ul li a:hover {
+  color: #F72F1F;
+  border-bottom: 10px solid #F72F1F;
+}
+
+.content-container {
+  color: #fff;
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -50px;
+  width: 80%;
+  border-right: 1px solid #fff;
+  border-left: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  box-shadow: 2px 1px 4px 1px #BBB7B6;
+  margin-bottom: 20px;
+}
+
+.title-block {
+  margin-top: -10px;
+  color: #000;
+  width: 100%;
+  height: 48px;
+  margin-bottom: 40px;
+  ffont-family: 'Geostar Fill', cursive;
+  font-family: 'Arial';
+  letter-spacing: 3px;
+}
+
+.left-image {
+  float: left;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  width: 40%;
+  padding: 2px;
+  box-shadow: 2px 1px 4px 1px #BBB7B6;
+  border-radius: 25px;
+  border: 1px solid #fff;
+}
+
+p:first-of-type {
+  text-indent: 50px;
+}
+
+.content-block {
+  width: 100%;
+}
+
+.content-block ul {
+  list-style-image: url('../images/death-star-icon.png');
+}
+
+footer {
+  height: 50px;
+  background-color: #fff;
+  text-align: center;
+  line-height: 50px;
+}
+
+/* responsive styles */
+@media screen and (max-width: 900px) {
+  header {
+    background-size: 100%;
+  }
+
+  header ul {
+    margin-left: -30px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  header {
+    height: 300px;
+  }
+
+  header ul li {
+    display: block;
+  }
+}

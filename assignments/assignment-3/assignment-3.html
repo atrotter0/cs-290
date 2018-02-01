@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Assignment 3: Javascript & CSS</title>
+    <link rel="stylesheet" type="text/css" href="styles/styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Geostar+Fill" rel="stylesheet">
+    <script src="scripts/scripts.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <nav>
+          <ul>
+            <li class="dropdown">
+              <button class="dropbtn"><a href="#">Description</a></button>
+              <div class="dropdown-content">
+                <a href="">Link1</a>
+                <a href="">Link2</a>
+                <a href="">Link3</a>
+              </div>
+            </li>
+            <li class="dropdown">
+              <button class="dropbtn"><a href="#">Armaments</a></button>
+              <div class="dropdown-content">
+                <a href="">Link1</a>
+                <a href="">Link2</a>
+                <a href="">Link3</a>
+              </div>
+            </li>
+            <li class="dropdown">
+              <button class="dropbtn"><a href="#">Behind The Scenes</a></button>
+              <div class="dropdown-content">
+                <a href="">Link1</a>
+                <a href="">Link2</a>
+                <a href="">Link3</a>
+              </div>
+            </li>
+            <li class="dropdown">
+              <button class="dropbtn"><a href="#">Sources</a></button>
+              <div class="dropdown-content">
+                <a href="">Link1</a>
+                <a href="">Link2</a>
+                <a href="">Link3</a>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <div class="content-container">
+        <h1 class="title-block">The Death Star II</h1>
+        <div class="content-block">
+          <img src="images/death-star-slide-1.png" class="left-image" id="left-image" onclick="startSlideshow()"></img>
+          <p ondblclick="enterEditMode('section-one')" id="section-one-display">The second Death Star, also known as the Death Star II, was a partially-completed moon-sized battle station constructed by the Galactic Empire as the successor to the Death Star. Like the first Death Star, the Death Star II's long-term purpose was to terrorize planets and star systems in league with the Rebel Alliance through the use of its planet-destroying superlaser. However, the Death Star II also served another purpose: luring the Rebels into a battle that would, the Empire hoped, destroy them once and for all. Though designed to be very similar in appearance and function to the first Death Star, the second Death Star improved on its predecessor's design by incorporating millions of millimeter-sized heat-dispersion tubes in place of the two-meter-wide thermal exhaust port exploited by the Rebel Alliance at the Battle of Yavin.</p>
+          <div class="editor-view" id="section-one-editor">
+            <textarea id="section-one-text"></textarea><br/>
+            <input type="submit" id="section-one-submit" onclick="submitData('section-one')">
+          </div>
+          <p ondblclick="enterEditMode('section-two')" id="section-two-display">Secretly constructed in orbit around the forest moon of Endor, the Death Star II was larger than its 160-kilometer-wide predecessor and was constructed using more efficient methods. Positioned in synchronous orbit above Endor, the battle station was protected by a deflector shield projected by a ground-based shield generator. With the superlaser being the main priority, the weapon was completed by 4 ABY while the rest of the superstructure was still under construction. After the Empire secretly leaked the location of the "incomplete" second Death Star to Bothan spies working for the Rebellion, the Alliance Fleet arrived at Endor and were shocked to find the superlaser fully operational. In the ensuing battle, Rebel ground forces managed to destroy the shield generator protecting the Death Star, allowing Rebel starships to infiltrate the battle station's reactor core and destroy the station. Combined with the deaths of Emperor Sheev Palpatine and his apprentice, the Sith Lord Darth Vader, the destruction of the second Death Star was a significant defeat for the Empire. Within a year, the fractured Empire formally surrendered to the Rebellion's recently introduced government, the New Republic.</p>
+          <div class="editor-view" id="section-two-editor">
+            <textarea id="section-two-text"></textarea><br/>
+            <input type="submit" id="section-two-submit" onclick="submitData('section-two')">
+          </div> 
+          <div class="tile-container" id="tile-container">
+            <div class="controls">
+              <button onclick="restoreTiles()">Restore</button> | 
+              <button onclick="clearTiles()">Clear</button>
+            </div>
+            <div class="tile" id="image-one">
+              <div class="tile-x-block">
+                <button class="tile-x" onclick="hideTile('image-one')">X</button>
+              </div>
+              <img src="images/tile-image.jpg"><br/>
+              <div class="tile-image-title">Some Title</div>
+            </div>
+            <div class="tile" id="image-two">
+              <div class="tile-x-block">
+                <button class="tile-x" onclick="hideTile('image-two')">X</button>
+              </div>
+              <img src="images/tile-image.jpg"><br/>
+              <div class="tile-image-title">Some Title</div>
+            </div>
+            <div class="tile" id="image-three">
+              <div class="tile-x-block">
+                <button class="tile-x" onclick="hideTile('image-three')">X</button>
+              </div>
+              <img src="images/tile-image.jpg"><br/>
+              <div class="tile-image-title">Some Title</div>
+            </div>
+            <div class="tile" id="image-four">
+              <div class="tile-x-block">
+                <button class="tile-x" onclick="hideTile('image-four')">X</button>
+              </div>
+              <img src="images/tile-image.jpg"><br/>
+              <div class="tile-image-title">Some Title</div>
+            </div>
+            <div class="tile" id="image-five">
+              <div class="tile-x-block">
+                <button class="tile-x" onclick="hideTile('image-five')">X</button>
+              </div>
+              <img src="images/tile-image.jpg"><br/>
+              <div class="tile-image-title">Some Title</div>
+            </div>
+            <div class="tile" id="image-six">
+              <div class="tile-x-block">
+                <button class="tile-x" onclick="hideTile('image-six')">X</button>
+              </div>
+              <img src="images/tile-image.jpg"><br/>
+              <div class="tile-image-title">Some Title</div>
+            </div>
+            <div class="tile" id="image-seven">
+              <div class="tile-x-block">
+                <button class="tile-x" onclick="hideTile('image-seven')">X</button>
+              </div>
+              <img src="images/tile-image.jpg"><br/>
+              <div class="tile-image-title">Some Title</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer>Created by Abel Trotter for Assignment 2</footer>
+    </div>
+  </body>
+</html>
