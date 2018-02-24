@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Assignment 5: Front-End & Back-End</title>
+    <link rel="stylesheet" type="text/css" href="styles/styles.css">
+    <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="tab.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <div class="container">
+      <header>Currency Exchanger 5000</header>
+      <div class="exchange-container">
+        <div class="tab">
+          <button class="tablinks" id="exchange">Exchange Funds</button>
+          <button class="tablinks" id="add">Add Country</button>
+          <button class="tablinks" id="update">Update Country</button>
+        </div>
+        <div id="exchange-tab" class="tabcontent">
+          <div class="window-block">
+            <label for="from-country">From Country:</label><br/>
+            <select id="from-country">
+              <option name="default" value="">-</option>
+            </select>
+          </div>
+          <div class="window-block">
+            <label for="to-country">To Country:</label><br/>
+            <select id="to-country">
+              <option name="default" value="">-</option>
+            </select>
+          </div>
+          <div class="window-block">
+            <label for="amount">Amount:</label><br/><input type="text"><br/><br/>
+            <button>Reset</button><button>Submit</button>
+          </div>
+          <div class="window-block">
+            <div class="log"></div>
+          </div>
+        </div>
+        <div id="add-tab" class="tabcontent">
+          <div class="wide-block center">
+            <label for="country-name">Country:</label><br/>
+            <input type="text" id="country-name">
+          </div>
+          <div class="window-block">
+            <label for="currency-name">Curency:</label><br/>
+            <input type="text" id="currency-name">
+          </div>
+          <div class="window-block">
+            <label for="notation">Notation:</label><br/>
+            <input type="text" id="notation">
+          </div>
+          <div class="window-block">
+            <label for="rate">Rate:</label><br/>
+            <input type="text" id="rate">
+          </div>
+          <div class="window-block">
+            <label for="comission">Commission:</label><br/><input type="text" id="commission">
+          </div>
+          <div class="wide-block center">
+            <button>Reset</button><button>Add Country</button>
+          </div>
+        </div>
+        <div id="update-tab" class="tabcontent">
+          <div class="wide-block center">
+            <label for="country-select">Country:</label><br/>
+            <select id="country-select">
+              <option name="default" value="">-</option>
+            </select>
+          </div>
+          <div class="window-block">
+            <label for="currency-name">Curency:</label><br/>
+            <input type="text" id="currency-name">
+          </div>
+          <div class="window-block">
+            <label for="notation">Notation:</label><br/>
+            <input type="text" id="notation">
+          </div>
+          <div class="window-block">
+            <label for="rate">Rate:</label><br/>
+            <input type="text" id="rate">
+          </div>
+          <div class="window-block">
+            <label for="comission">Commission:</label><br/><input type="text" id="commission">
+          </div>
+          <div class="wide-block center">
+            <button>Reset</button><button>Update Country</button>
+          </div>
+        </div>
+      </div>
+      <footer>Created by Abel Trotter & Ted George for Assignment 5</footer>
+    </div>
+  </body>
+</html>
