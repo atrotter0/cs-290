@@ -12,6 +12,8 @@ app.get("/", function(req, res) {
 
 app.get('/exchange/findall', mydb.findAll);
 
+app.get('/allCountries', mydb.getAllCountries);
+
 app.get('/exchange/:country', mydb.findByCountry);
 
 app.get('/exchange/:country1/:country2/:amount', mydb.runExchange);

@@ -11,7 +11,7 @@ db.open(function(err,db) {
       }
     })
   } else {
-    console.log("Looks like a db error."+ err);
+    console.log("Looks like a db error: " + err);
   }
 });
 
@@ -39,6 +39,22 @@ exports.findAll = function(req,res) {
   });
 };
 
+//get all countries from DB
+exports.getAllCountries = function(req,res) {
+  console.log("in getAllCountries");
+  var cursor = db.collection('rates').find( { country : { $exists : true } } ).toArray(function (err, result) {
+    if (!err) {
+      var countryList = [];
+      for(var i = 0; i < result.length; i++) {
+        countryList.push(result[i].country);
+      }
+      result = countryList;
+      res.send(result);
+    }
+    res.end();
+  });
+};
+
 //find by country name
 exports.findByCountry = function(req, res) {
   res.setHeader('Content-Type', 'application/json');
@@ -56,7 +72,7 @@ function returnCountryRates(req, res, id, amt) {
         var notation = item.notation;
         console.log("notation = " + notation);
         var multiplier = item.multiplier;
-        var myresp = "{\"usd\":\""+amt+"\",\""+notation+"\":\""+multiplier*amt+"\"}";
+        var myresp = "{\"usd \":\"" + amt + "\",\"" + notation + "\":\"" + multiplier*amt + "\"}";
         res.send(myresp);
       } else {
         res.send('{"error":"No entry found for country '+id+'"}');
@@ -71,38 +87,14 @@ exports.runExchange = function(req, res) {
   var id1 = req.params.country1;
   var id2 = req.params.country2;
   var amt = req.params.amount;
-  var rate1 = findExchangeData(req, res, id1, amt);
-  console.log('rate1: ' + rate1);
-  var rate2 = findExchangeData(req, res, id2, amt);
-  console.log('rate2: ' + rate2);
-  var result = calculateExchange(amt, rate1, rate2);
-  console.log('made it to result: ' + result);
-  var myresp = "{\"total\":\""+result+"\"}";
-  res.send(myresp);
+  console.log('params:' + id1 + ', ' + id2 + ' ' + amt);
+  calculateExchange(id1, id2, amt, req, res);
 }
 
-function findExchangeData(req, res, id, amt) {
-  db.collection('rates', function(err, collection) {
-    collection.findOne({'country': id}, function(err, item) {
-      console.log('id: ' + id);
-      if (item) {
-        var myObject = {
-          'usd': amt,
-          'notation': item.notation,
-          'multiplier': (item.multiplier * amt)
-        };
-        console.log('object: ' + myObject);
-        return myObject;
-      } else {
-        return err;
-      }
-    });
-  });
+function calculateExchange(id1, id2, amt, req, res) {
+  
 }
 
-//calculate and return the exchange value
-function calculateExchange(amt, rate1, rate2) {
-  var total = rate1.multiplier / rate2.multiplier;
-  console.log('calculate exchange: ' + total);
-  return total;
+function findExchangeData(req, res, id1, id2, amt) {
+  var item1, item2;
 }
