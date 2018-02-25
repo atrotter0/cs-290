@@ -100,7 +100,7 @@ label {
 }
 
 select {
-  width: 100px;
+  width: 130px;
   height: 45px;
   border: 1px solid #ccc;
 }
@@ -142,4 +142,3 @@ footer {
   color: #fff;
   text-align: center;
 }
-
