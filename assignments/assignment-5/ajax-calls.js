@@ -24,19 +24,6 @@ function populateCountrySelect(data) {
   }
 }
 
-// function exchange() {
-//   $.ajax({
-//     url:"/exchange/",
-//     success: function(data) {
-//       console.log(data);
-//       loadData(data);
-//     },
-//     error: function(err) {
-//       console.log(err);
-//     }
-//   })
-// }
-
 $(document).ready(function() {
     getData();
 });
