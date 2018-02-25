@@ -2,9 +2,10 @@
 <html>
   <head>
     <title>Assignment 5: Front-End & Back-End</title>
-    <link rel="stylesheet" type="text/css" href="styles/styles.css">
+    <link rel="stylesheet" type="text/css" href="/styles/styles.css">
     <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="tab.js"></script>
+    <script src="ajax-calls.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
@@ -19,14 +20,14 @@
         <div id="exchange-tab" class="tabcontent">
           <div class="window-block">
             <label for="from-country">From Country:</label><br/>
-            <select id="from-country">
-              <option name="default" value="">-</option>
+            <select class="country-select" id="from-country">
+              <option name="default" value="">Select a Country</option>
             </select>
           </div>
           <div class="window-block">
             <label for="to-country">To Country:</label><br/>
-            <select id="to-country">
-              <option name="default" value="">-</option>
+            <select class="country-select" id="to-country">
+              <option name="default" value="">Select a Country</option>
             </select>
           </div>
           <div class="window-block">
