@@ -113,7 +113,7 @@ input[type=text] {
   border: 1px solid #ccc;
 }
 
-.window-block button, .wide-block button {
+.window-block button, .wide-block button, input[type="submit"] {
   height: 45px;
   width: 100px;
   background-color: #fff;
@@ -123,7 +123,7 @@ input[type=text] {
   transition: background 0.5s, color 0.5s, border 0.5s;
 }
 
-.window-block button:hover, .wide-block button:hover {
+.window-block button:hover, .wide-block button:hover, input[type="submit"]:hover {
   background-color: #000;
   border: 1px solid #fff;
   color: #fff;
@@ -142,3 +142,4 @@ footer {
   color: #fff;
   text-align: center;
 }
+

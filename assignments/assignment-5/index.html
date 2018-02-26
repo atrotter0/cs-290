@@ -32,7 +32,7 @@
           </div>
           <div class="window-block">
             <label for="amount">Amount:</label><br/><input type="text"><br/><br/>
-            <button>Reset</button><button>Submit</button>
+            <button class="resetBtn">Reset</button><button>Submit</button>
           </div>
           <div class="window-block">
             <div class="log"></div>
@@ -41,25 +41,26 @@
         <div id="add-tab" class="tabcontent">
           <div class="wide-block center">
             <label for="country-name">Country:</label><br/>
-            <input type="text" id="country-name">
+            <input type="text" id="country-add" required>
           </div>
           <div class="window-block">
-            <label for="currency-name">Curency:</label><br/>
-            <input type="text" id="currency-name">
+            <label for="currency-name">Currency:</label><br/>
+            <input type="text" id="currency-add" required>
           </div>
           <div class="window-block">
             <label for="notation">Notation:</label><br/>
-            <input type="text" id="notation">
+            <input type="text" id="notation-add" required>
           </div>
           <div class="window-block">
             <label for="rate">Rate:</label><br/>
-            <input type="text" id="rate">
+            <input type="text" id="rate-add" required>
           </div>
           <div class="window-block">
-            <label for="comission">Commission:</label><br/><input type="text" id="commission">
+            <label for="comission">Commission:</label><br/>
+            <input type="text" id="commission-add" reqiured>
           </div>
           <div class="wide-block center">
-            <button>Reset</button><button>Add Country</button>
+            <button class="resetBtn">Reset</button><input type="submit" id="add-country" nosubmit="true" value="Add Country">
           </div>
         </div>
         <div id="update-tab" class="tabcontent">
@@ -70,22 +71,22 @@
             </select>
           </div>
           <div class="window-block">
-            <label for="currency-name">Curency:</label><br/>
-            <input type="text" id="currency-name">
+            <label for="currency-name">Currency:</label><br/>
+            <input type="text" id="currency-update">
           </div>
           <div class="window-block">
             <label for="notation">Notation:</label><br/>
-            <input type="text" id="notation">
+            <input type="text" id="notation-update">
           </div>
           <div class="window-block">
             <label for="rate">Rate:</label><br/>
-            <input type="text" id="rate">
+            <input type="text" id="rate-update">
           </div>
           <div class="window-block">
             <label for="comission">Commission:</label><br/><input type="text" id="commission">
           </div>
           <div class="wide-block center">
-            <button>Reset</button><button>Update Country</button>
+            <button class="resetBtn">Reset</button><button>Update Country</button>
           </div>
         </div>
       </div>

@@ -30,7 +30,6 @@ function populateDB() {
 
 //get all data from DB
 exports.findAll = function(req,res) {
-  console.log("in findall");
   var cursor = db.collection('rates').find( ).toArray(function (err, result) {
     if (!err) {
       res.send(result);
@@ -81,20 +80,55 @@ function returnCountryRates(req, res, id, amt) {
   });
 }
 
-//run the currency exchange
+//run the currency exchange - needs work
 exports.runExchange = function(req, res) {
   res.setHeader('Content-Type', 'application/json');
   var id1 = req.params.country1;
   var id2 = req.params.country2;
   var amt = req.params.amount;
   console.log('params:' + id1 + ', ' + id2 + ' ' + amt);
-  calculateExchange(id1, id2, amt, req, res);
+  var result1 = returnCountryData(req, res, id1, amt);
+  var result2 = returnCountryData(req, res, id2, amt);
+  console.log('result1: ' + result1);
+  console.log('result2: ' + result2);
+  calculateExchange(result1, result2, amt, req, res);
 }
 
-function calculateExchange(id1, id2, amt, req, res) {
-  
+//needs work
+function returnCountryData(req, res, id, amt) {
+  var multiplier = 0;
+  db.collection('rates', function(err, collection, multiplier) {
+    collection.findOne({'country':id}, function(err, item, multiplier) {
+      if (item) {
+        multiplier = item.multiplier;
+        console.log('multiplier: ' + multiplier);
+        return multiplier;
+        res.end();
+      } else {
+        console.log(err);
+      }
+    });
+  });
 }
 
-function findExchangeData(req, res, id1, id2, amt) {
-  var item1, item2;
+//needs work
+function calculateExchange(result1, result2, amt, req, res) {
+  var calculation = amt * result2;
+  console.log('calculation: '+ calculation);
+  var finalCalculation = calculation.toString();
+  res.send(finalCalculation);
+}
+
+//insert a new country
+exports.createCountry = function(req, res) {
+  db.collection('rates', function(err, collection) {
+    collection.insert({
+      "country": req.body.country.country,
+      "currency": req.body.country.currency,
+      "notation": req.body.country.notation,
+      "rate": req.body.country.rate,
+      "commission": req.body.country.commission
+    });
+    res.send('success!');
+  });
 }
