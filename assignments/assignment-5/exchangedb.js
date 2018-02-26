@@ -132,3 +132,9 @@ exports.createCountry = function(req, res) {
     res.send('success!');
   });
 }
+
+exports.nuke = function(req, res) {
+  console.log('dropping db...');
+  db.collection('rates').drop();
+  res.send('db dropped');
+}
