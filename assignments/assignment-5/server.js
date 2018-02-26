@@ -24,6 +24,8 @@ app.get('/exchange/:country1/:country2/:amount', mydb.runExchange);
 
 app.put('/exchange/country', mydb.createCountry);
 
+app.post('/exchange/country', mydb.updateCountry);
+
 //do not run unless you want to drop your existing db and start from scratch
 app.get('/nuke', mydb.nuke);
 

@@ -40,7 +40,7 @@ exports.findAll = function(req,res) {
 
 //get all countries from DB
 exports.getAllCountries = function(req,res) {
-  console.log("in getAllCountries");
+  console.log("Getting all countries...");
   var cursor = db.collection('rates').find( { country : { $exists : true } } ).toArray(function (err, result) {
     if (!err) {
       var countryList = [];
@@ -60,27 +60,62 @@ exports.findByCountry = function(req, res) {
   var id = req.params.country;
   var amt = 1;
   console.log('Retrieving by country: ' + id );
-  returnCountryRates(req, res, id, amt);
+  returnCountry(req, res, id);
 };
 
-//return country rates in usd
-function returnCountryRates(req, res, id, amt) {
+//return country from db
+function returnCountry(req, res, id) {
   db.collection('rates', function(err, collection) {
     collection.findOne({'country':id}, function(err, item) {
       if (item) {
-        var notation = item.notation;
-        console.log("notation = " + notation);
-        var multiplier = item.multiplier;
-        var myresp = "{\"usd \":\"" + amt + "\",\"" + notation + "\":\"" + multiplier*amt + "\"}";
-        res.send(myresp);
+        res.send(item);
       } else {
-        res.send('{"error":"No entry found for country '+id+'"}');
+        res.send('{"error":"No entry found for country '+ id +'"}');
       }
     });
   });
 }
 
-//run the currency exchange - needs work
+//insert a new country
+exports.createCountry = function(req, res) {
+  db.collection('rates', function(err, collection) {
+    collection.insert({
+      "country": req.body.country.country,
+      "currency": req.body.country.currency,
+      "notation": req.body.country.notation,
+      "rate": req.body.country.rate,
+      "commission": req.body.country.commission
+    });
+    res.send('created country!');
+  });
+}
+
+//update a country
+exports.updateCountry = function(req, res) {
+  db.collection('rates', function(err, collection) {
+    collection.findOne({'country': req.body.country.country}, function(err, item) {
+      if (item) {
+        item.country = req.body.country.country;
+        item.currency = req.body.country.currency;
+        item.notation = req.body.country.notation;
+        item.rate = req.body.country.rate;
+        item.commission = req.body.country.commission;
+        res.send('updated country!');
+      } else {
+        res.send('{"error":"No entry found for country '+ id +'"}');
+      }
+    });
+  });
+}
+
+exports.nuke = function(req, res) {
+  console.log('dropping db...');
+  db.collection('rates').drop();
+  res.send('db dropped. Restart your server to repopulate your db.');
+}
+
+//WIP from here down
+//run the currency exchange
 exports.runExchange = function(req, res) {
   res.setHeader('Content-Type', 'application/json');
   var id1 = req.params.country1;
@@ -117,24 +152,4 @@ function calculateExchange(result1, result2, amt, req, res) {
   console.log('calculation: '+ calculation);
   var finalCalculation = calculation.toString();
   res.send(finalCalculation);
-}
-
-//insert a new country
-exports.createCountry = function(req, res) {
-  db.collection('rates', function(err, collection) {
-    collection.insert({
-      "country": req.body.country.country,
-      "currency": req.body.country.currency,
-      "notation": req.body.country.notation,
-      "rate": req.body.country.rate,
-      "commission": req.body.country.commission
-    });
-    res.send('success!');
-  });
-}
-
-exports.nuke = function(req, res) {
-  console.log('dropping db...');
-  db.collection('rates').drop();
-  res.send('db dropped');
 }

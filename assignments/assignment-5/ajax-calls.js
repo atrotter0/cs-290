@@ -1,6 +1,6 @@
 function getData() {
   $.ajax({
-    url:"/exchange/findall",
+    url: "/allCountries",
     success: function(data) {
       console.log(data);
       loadData(data);
@@ -16,23 +16,27 @@ function loadData(data) {
 }
 
 function populateCountrySelect(data) {
-  $('.country-select').empty();
-  $('.country-select').append($('<option>', {
-    value: '',
-    text: 'Select Country'
-  }));
+  resetSelect();
   for(i = 0; i < data.length; i++) {
     $('.country-select').append($('<option>', {
-      value: data[i].country,
-      text: data[i].country
+      value: data[i],
+      text: data[i]
     }));
   }
 }
 
+function resetSelect() {
+  $('.country-select').empty().append($('<option>', {
+    value: '',
+    text: 'Select Country'
+  }));
+  $('.country-select :nth-child(1)').prop('selected', true);
+}
+
 function addCountry(newCountry) {
   $.ajax({
-    url:"/exchange/country",
-    method:"PUT",
+    url: "/exchange/country",
+    method: "PUT",
     data: { country: newCountry },
     success: function(data) {
       resetFields();
@@ -55,12 +59,6 @@ function buildCountryObject() {
   return country;
 }
 
-function resetFields() {
-  $('input[type=text]').each(function() {
-    $(this).val('');
-  });
-}
-
 function addCountryElements() {
   elementList = ['#country-add', '#currency-add', '#notation-add', '#rate-add', '#commission-add'];
   return elementList;
@@ -74,6 +72,13 @@ function noEmptyFields(myElements) {
     }
   };
   return flag;
+}
+
+function resetFields() {
+  $('input[type=text]').each(function() {
+    $(this).val('');
+  });
+  $('.country-select :nth-child(1)').prop('selected', true);
 }
 
 $(document).ready(function() {
@@ -90,7 +95,7 @@ $(document).ready(function() {
         var countryObject = buildCountryObject();
         addCountry(countryObject);
       } else {
-        alert('Please fill out all input fields to submit a new country.');
+        alert('Please fill out all fields to submit a new country.');
       }
     });
     
