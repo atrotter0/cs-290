@@ -69,8 +69,8 @@ function getCountryData(country) {
     success: function(data) {
       loadUpdateFields(data);
     },
-    error: function(error) {
-      //do something
+    error: function(err) {
+      console.log('Error updating new country: ' + JSON.stringify(err));
    }
   })
 }
@@ -120,6 +120,15 @@ function resetFields() {
   $('.country-select :nth-child(1)').prop('selected', true);
 }
 
+function countrySelected() {
+  var optionVal = $('#country-update-select').val();
+  if (optionVal == "") {
+    return false;
+  } else {
+    return true;
+  }
+}
+
 $(document).ready(function() {
   getData();
   
@@ -142,13 +151,15 @@ $(document).ready(function() {
     var option = $(this).val();
     if (option != "") {
       getCountryData(option);
+    } else {
+      resetFields();
     }
   });
   
   $('#update-country').click(function(e) {
     e.preventDefault();
     var elements = updateCountryElements();
-    if (noEmptyFields(elements)) {
+    if (noEmptyFields(elements) && countrySelected()) {
       var countryObject = buildCountryObject('-update');
       countryObject.country = $('#country-update-select').val();
       updateCountry(countryObject);
