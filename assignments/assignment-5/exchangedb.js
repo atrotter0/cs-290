@@ -15,6 +15,7 @@ db.open(function(err,db) {
   }
 });
 
+//preload db
 function populateDB() {
   var countries = [
     {country: "India", notation: "Rs", currency: "Rupees", commission:"0.02", multiplier:"65"},
@@ -28,7 +29,7 @@ function populateDB() {
   });
 }
 
-//get all data from DB
+//get all data from db
 exports.findAll = function(req,res) {
   var cursor = db.collection('rates').find( ).toArray(function (err, result) {
     if (!err) {
@@ -38,7 +39,7 @@ exports.findAll = function(req,res) {
   });
 };
 
-//get all countries from DB
+//get all countries from db
 exports.getAllCountries = function(req,res) {
   console.log("Getting all countries...");
   var cursor = db.collection('rates').find( { country : { $exists : true } } ).toArray(function (err, result) {
@@ -81,10 +82,10 @@ exports.createCountry = function(req, res) {
   db.collection('rates', function(err, collection) {
     collection.insert({
       "country": req.body.country.country,
-      "currency": req.body.country.currency,
       "notation": req.body.country.notation,
-      "rate": req.body.country.rate,
-      "commission": req.body.country.commission
+      "currency": req.body.country.currency,
+      "commission": req.body.country.commission,
+      "multiplier": req.body.country.multiplier,
     });
     res.send('created country!');
   });
@@ -93,21 +94,25 @@ exports.createCountry = function(req, res) {
 //update a country
 exports.updateCountry = function(req, res) {
   db.collection('rates', function(err, collection) {
-    collection.findOne({'country': req.body.country.country}, function(err, item) {
-      if (item) {
-        item.country = req.body.country.country;
-        item.currency = req.body.country.currency;
-        item.notation = req.body.country.notation;
-        item.rate = req.body.country.rate;
-        item.commission = req.body.country.commission;
-        res.send('updated country!');
-      } else {
-        res.send('{"error":"No entry found for country '+ id +'"}');
+    collection.findAndModify(
+      { "country": req.body.country.country },
+      { rating: 1 },
+      { $set: {
+        "notation": req.body.country.notation,
+        "currency": req.body.country.currency,
+        "commission": req.body.country.commission,
+        "multiplier": req.body.country.multiplier
+      }},
+      { new: true, upsert: true},
+      function(err, doc) {
+        console.log('updated country: ' + JSON.stringify(doc));
       }
-    });
+    );
+    res.send('updated country!');
   });
 }
 
+//drop db
 exports.nuke = function(req, res) {
   console.log('dropping db...');
   db.collection('rates').drop();
