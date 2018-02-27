@@ -19,7 +19,8 @@ db.open(function(err,db) {
 function populateDB() {
   var countries = [
     {country: "India", notation: "Rs", currency: "Rupees", commission:"0.02", multiplier:"65"},
-    {country: "Thailand", notation: "thb", currency: "Baht", commission:"0.02", multiplier:"35.5"}
+    {country: "Thailand", notation: "thb", currency: "Baht", commission:"0.02", multiplier:"35.5"},
+    {country: "Noobville", notation: "nob", currency: "Nobo", commission:"0.02", multiplier:"115.5"}
   ];
   db.collection('rates', function(err, collection) {
     collection.insert(countries, {safe:true}, function(err, result) {
@@ -119,7 +120,6 @@ exports.nuke = function(req, res) {
   res.send('db dropped. Restart your server to repopulate your db.');
 }
 
-//WIP from here down
 //run the currency exchange
 exports.runExchange = function(req, res) {
   res.setHeader('Content-Type', 'application/json');
@@ -127,34 +127,44 @@ exports.runExchange = function(req, res) {
   var id2 = req.params.country2;
   var amt = req.params.amount;
   console.log('params:' + id1 + ', ' + id2 + ' ' + amt);
-  var result1 = returnCountryData(req, res, id1, amt);
-  var result2 = returnCountryData(req, res, id2, amt);
-  console.log('result1: ' + result1);
-  console.log('result2: ' + result2);
-  calculateExchange(result1, result2, amt, req, res);
+  returnCountryData(req, res, id1, id2, amt);
 }
 
-//needs work
-function returnCountryData(req, res, id, amt) {
-  var multiplier = 0;
-  db.collection('rates', function(err, collection, multiplier) {
-    collection.findOne({'country':id}, function(err, item, multiplier) {
-      if (item) {
-        multiplier = item.multiplier;
-        console.log('multiplier: ' + multiplier);
-        return multiplier;
-        res.end();
+//get country data for each country param
+function returnCountryData(req, res, id1, id2, amt) {
+  db.collection('rates', function(err, collection) {
+    var multiplier1, multiplier2;
+    collection.findOne({'country':id1}, function(err, item1, multiplier1) {
+      if (item1) {
+        var multiplier1 = item1.multiplier;
+        console.log('multiplier1: ' + multiplier1);
+        collection.findOne({'country':id2}, function(err, item2, multiplier2) {
+          if(item2) {
+            var multiplier2 = item2.multiplier;
+            console.log('multiplier2: ' + multiplier2);
+            buildResponse(multiplier1, multiplier2, amt, res, req);
+          } else {
+            res.send('{"error":"No entry found for country '+ id2 +'"}');
+          }
+        });
       } else {
-        console.log(err);
+        res.send('{"error":"No entry found for country '+ id1 +'"}');
       }
     });
   });
 }
 
-//needs work
-function calculateExchange(result1, result2, amt, req, res) {
-  var calculation = amt * result2;
-  console.log('calculation: '+ calculation);
-  var finalCalculation = calculation.toString();
-  res.send(finalCalculation);
+//build our response object and make final exchange calculations
+function buildResponse(multiplier1, multiplier2, amt, res, req) {
+  var usd1 = amt / multiplier1;
+  var usd2 = amt / multiplier2;
+  var finalResult = usd1 - usd2;
+  console.log("final result: " + finalResult);
+  finalResult.toString();
+  var resultObject = {
+    "usd1": usd1,
+    "usd2": usd2,
+    "finalResult": finalResult
+  }
+  res.send(resultObject);
 }
