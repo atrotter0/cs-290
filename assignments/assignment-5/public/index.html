@@ -18,6 +18,7 @@
           <button class="tablinks" id="update">Update Country</button>
         </div>
         <div id="exchange-tab" class="tabcontent">
+          <div class="wide-block center error-display"></div>
           <div class="window-block">
             <label for="from-country">From Country:</label><br/>
             <select class="country-select" id="from-country">
@@ -32,7 +33,7 @@
           </div>
           <div class="window-block">
             <label for="amount">Amount:</label><br/>
-            <input type="text" id="amount" onkeypress='return event.charCode >= 48 && event.charCode <= 57'><br/><br/>
+            <input type="text" id="amount" class="only-whole-numbers"><br/><br/>
             <button class="resetBtn">Reset</button><input type="submit" id="exchangeBtn" value="Submit">
           </div>
           <div class="window-block">
@@ -44,6 +45,7 @@
           </div>
         </div>
         <div id="add-tab" class="tabcontent">
+          <div class="wide-block center error-display"></div>
           <div class="wide-block center">
             <label for="country-name">Country:</label><br/>
             <input type="text" id="country-add" class="only-letters">
@@ -69,6 +71,7 @@
           </div>
         </div>
         <div id="update-tab" class="tabcontent">
+          <div class="wide-block center error-display"></div>
           <div class="wide-block center">
             <label for="country-select">Country:</label><br/>
             <select class="country-select" id="country-update-select">

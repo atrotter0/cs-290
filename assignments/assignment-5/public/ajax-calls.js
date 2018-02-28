@@ -117,19 +117,28 @@ function noEmptyFields(myElements) {
   return flag;
 }
 
+function alertMsg(msg, flag) {
+  if (!flag) alert(msg);
+}
+
 function resetFields() {
   $('input[type=text]').each(function() {
-    $(this).val('');
+    $(this).val('').css('border', '1px solid #ccc');
   });
   $('.country-select :nth-child(1)').prop('selected', true);
   clearLog();
-  resetBorders();
+  resetErrorDisplay();
 }
 
 function clearLog() {
   $('#result-1').text("");
   $('#result-2').text("");
   $('#final-result').text("");
+}
+
+function resetErrorDisplay() {
+  $('.error-display').css('visibility', 'hidden').text('');
+  $('#update-country, #add-country, #exchangeBtn').removeAttr('disabled').css('border', '1px solid #000');
 }
 
 function countrySelected() {
@@ -178,46 +187,51 @@ function exchangeCheck() {
   }
 }
 
-function onlyLetters() {
-  resetBorders();
-  var flag = true;
-  $('.only-letters').each(function() {
-    if ($(this).val().match(/[^a-zA-Z]/)) {
-      $(this).css('border', '1px solid red');
-      flag = false;
-    }
-  });
-  alertMsg('Please fix the red fields. Only Letters are allowed.', flag);
-  return flag;
+function onlyLetters(element) {
+  if ($(element).val().match(/[^a-zA-Z]/)) {
+    var msg = '*Only letters are allowed.';
+    displayInputError(element, msg);
+  } else {
+    resetInputError(element);
+  }
 }
 
-function onlyNumbersAndDecimal() {
-  resetBorders();
-  var flag = true;
-  $('.only-numbers').each(function() {
-    if ($(this).val().match(/[^0-9..]/)) {
-      $(this).css('border', '1px solid red');
-      flag = false;
-    }
-  });
-  alertMsg('Please fix the red fields. Only numbers are allowed.', flag);
-  return flag;
+function onlyNumbers(element) {
+  if ($(element).val().match(/[^0-9..]/)) {
+    var msg = '*Only numbers are allowed.';
+    displayInputError(element, msg);
+  } else {
+    resetInputError(element);
+  }
 }
 
-function resetBorders() {
-  $('.only-letters, .only-numbers').each(function() {
-    $(this).css('border', '1px solid #ccc');
-  });
+function onlyWholeNumbers(element) {
+  if ($(element).val().match(/[^0-9]/)) {
+    var msg = '*Only whole numbers are allowed.';
+    displayInputError(element, msg);
+  } else {
+    resetInputError(element);
+  }
 }
 
-function alertMsg(msg, flag) {
-  if (!flag) alert(msg);
+function displayInputError(element, msg) {
+  console.log('display error');
+  $(element).css('border', '1px solid red');
+  $('.error-display').css('visibility', 'visible').text(msg);
+  $('#update-country, #add-country, #exchangeBtn').prop('disabled', 'true').css('border', '1px solid #ccc');
+}
+
+function resetInputError(element) {
+  console.log('resetting');
+  $(element).css('border', '1px solid #ccc');
+  $('.error-display').css('visibility', 'hidden').text('');
+  $('#update-country, #add-country, #exchangeBtn').removeAttr('disabled').css('border', '1px solid #000');
 }
 
 $(document).ready(function() {
   getData();
   
-  $('#exchange, #update').click(function() {
+  $('#exchange, #update, #add').click(function() {
     getData();
     resetFields();
   });
@@ -225,7 +239,7 @@ $(document).ready(function() {
   $('#add-country').click(function(e) {
     e.preventDefault();
     var elements = addCountryElements();
-    if (noEmptyFields(elements) && onlyLetters() && onlyNumbersAndDecimal()) {
+    if (noEmptyFields(elements)) {
       var countryObject = buildCountryObject('-add');
       addCountry(countryObject);
     }
@@ -235,7 +249,6 @@ $(document).ready(function() {
     var option = $(this).val();
     if (option != "") {
       getCountryData(option);
-      resetBorders();
     } else {
       resetFields();
     }
@@ -244,7 +257,7 @@ $(document).ready(function() {
   $('#update-country').click(function(e) {
     e.preventDefault();
     var elements = updateCountryElements();
-    if (noEmptyFields(elements) && countrySelected() && onlyLetters() && onlyNumbersAndDecimal()) {
+    if (noEmptyFields(elements) && countrySelected()) {
       var countryObject = buildCountryObject('-update');
       countryObject.country = $('#country-update-select').val();
       updateCountry(countryObject);
@@ -263,7 +276,19 @@ $(document).ready(function() {
     if (exchangeCheck()) {
       getExchangeData(country1, country2, amt);
     } else {
-      alert('Please enter a valid amount, and select two unique countries.'); 
+      alert('Please select two different countries to exchange funds between.'); 
     }
+  });
+  
+  $('.only-letters').keyup(function() {
+    onlyLetters(this);
+  });
+  
+  $('.only-numbers').keyup(function() {
+    onlyNumbers(this);
+  });
+  
+  $('.only-whole-numbers').keyup(function() {
+    onlyWholeNumbers(this);
   });
 });

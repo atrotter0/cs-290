@@ -21,11 +21,13 @@ header {
 }
 
 .exchange-container {
-  width: 60%;
+  max-width: 60%;
+  min-width: 515px;
   border: 1px solid #000;
   box-shadow: 2px 2px 2px #404040;
   border-radius: 5px;
-  height: 500px;
+  min-height: 550px;
+  height: auto;
   margin: 0 auto;
   margin-bottom: 20px;
   text-align: center;
@@ -139,6 +141,16 @@ input[type=text] {
 
 #currency-span {
   background-color: yellow;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+}
+
+.error-display {
+  color: red;
+  visibility: visible;
+  height: 20px;
 }
 
 footer {
