@@ -80,15 +80,22 @@ function returnCountry(req, res, id) {
 
 //insert a new country
 exports.createCountry = function(req, res) {
+  var id = req.body.country.country;
   db.collection('rates', function(err, collection) {
-    collection.insert({
-      "country": req.body.country.country,
-      "notation": req.body.country.notation,
-      "currency": req.body.country.currency,
-      "commission": req.body.country.commission,
-      "multiplier": req.body.country.multiplier,
+    collection.findOne({'country': id}, function(err, item) {
+      if (item) {
+        res.status(500).send(item);
+      } else {
+        console.log("didn't find the country, inserting...");
+        collection.insert({
+          "country": req.body.country.country,
+          "notation": req.body.country.notation,
+          "currency": req.body.country.currency,
+          "commission": req.body.country.commission,
+          "multiplier": req.body.country.multiplier
+        });
+      }
     });
-    res.send('created country!');
   });
 }
 

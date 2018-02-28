@@ -43,12 +43,16 @@ function addCountry(newCountry) {
       alert('Successfully created new country: ' + newCountry.country);
     },
     error: function(err, data) {
-      console.log('Error creating new country: ' + JSON.stringify(err));
+      var update = confirm('An entry already exists for ' + newCountry.country + '. Would you like to update?');
+      if (update) {
+        updateCountry(newCountry);
+      }
     }
   })
 }
 
 function updateCountry(updatedCountry) {
+  console.log('our update object: ' + JSON.stringify(updatedCountry));
   $.ajax({
     url: "/exchange/country",
     method: "POST",
