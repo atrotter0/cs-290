@@ -73,6 +73,7 @@ header {
 }
 
 .window-block {
+  vertical-align: top;
   display: inline-block;
   width: 45%;
   height: 35%;
@@ -134,6 +135,10 @@ input[type=text] {
 
 .center {
   text-align: center;
+}
+
+#currency-span {
+  background-color: yellow;
 }
 
 footer {

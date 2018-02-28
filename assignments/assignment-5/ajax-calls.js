@@ -52,7 +52,6 @@ function addCountry(newCountry) {
 }
 
 function updateCountry(updatedCountry) {
-  console.log('our update object: ' + JSON.stringify(updatedCountry));
   $.ajax({
     url: "/exchange/country",
     method: "POST",
@@ -114,6 +113,7 @@ function noEmptyFields(myElements) {
       flag = false;
     }
   };
+  alertMsg('Please fill out all fields to submit a new country.', flag);
   return flag;
 }
 
@@ -123,6 +123,7 @@ function resetFields() {
   });
   $('.country-select :nth-child(1)').prop('selected', true);
   clearLog();
+  resetBorders();
 }
 
 function clearLog() {
@@ -154,12 +155,15 @@ function getExchangeData(country1, country2, amt) {
 }
 
 function displayResults(results) {
-  var firstResult = 'Exchange rate for ' + results.name1 + ' for ' + results.amount + 'USD: ' +  results.usd1;
-  var secondResult = 'Exchange rate for ' + results.name1 + ' for '  + results.amount + 'USD: ' +  results.usd2;
-  var finalResult = 'Exchanging ' + results.amount + ' ' + results.notation1 + ' will give you ' + results.amount + ' ' + results.notation2 + '.';
+  var firstResult = 'Exchange rate for ' + results.name1 + ' for ' + results.amount + ' USD: ' +  results.usd1;
+  var secondResult = 'Exchange rate for ' + results.name2 + ' for '  + results.amount + ' USD: ' +  results.usd2;
+  var finalResult = 'Exchanging ';
   $('#result-1').text(firstResult);
   $('#result-2').text(secondResult);
   $('#final-result').text(finalResult);
+  $('#final-result').append('<span id="currency-span">' + JSON.parse(results.usd1) + '</span>')
+    .append(' ' + results.notation1 + ' will give you ').append('<span id="currency-span">' + JSON.parse(results.usd2) + '</span>')
+      .append(' ' + results.notation2 + '.');
 }
 
 function exchangeCheck() {
@@ -174,6 +178,42 @@ function exchangeCheck() {
   }
 }
 
+function onlyLetters() {
+  resetBorders();
+  var flag = true;
+  $('.only-letters').each(function() {
+    if ($(this).val().match(/[^a-zA-Z]/)) {
+      $(this).css('border', '1px solid red');
+      flag = false;
+    }
+  });
+  alertMsg('Please fix the red fields. Only Letters are allowed.', flag);
+  return flag;
+}
+
+function onlyNumbersAndDecimal() {
+  resetBorders();
+  var flag = true;
+  $('.only-numbers').each(function() {
+    if ($(this).val().match(/[^0-9..]/)) {
+      $(this).css('border', '1px solid red');
+      flag = false;
+    }
+  });
+  alertMsg('Please fix the red fields. Only numbers are allowed.', flag);
+  return flag;
+}
+
+function resetBorders() {
+  $('.only-letters, .only-numbers').each(function() {
+    $(this).css('border', '1px solid #ccc');
+  });
+}
+
+function alertMsg(msg, flag) {
+  if (!flag) alert(msg);
+}
+
 $(document).ready(function() {
   getData();
   
@@ -185,11 +225,9 @@ $(document).ready(function() {
   $('#add-country').click(function(e) {
     e.preventDefault();
     var elements = addCountryElements();
-    if (noEmptyFields(elements)) {
+    if (noEmptyFields(elements) && onlyLetters() && onlyNumbersAndDecimal()) {
       var countryObject = buildCountryObject('-add');
       addCountry(countryObject);
-    } else {
-      alert('Please fill out all fields to submit a new country.');
     }
   });
   
@@ -197,6 +235,7 @@ $(document).ready(function() {
     var option = $(this).val();
     if (option != "") {
       getCountryData(option);
+      resetBorders();
     } else {
       resetFields();
     }
@@ -205,12 +244,10 @@ $(document).ready(function() {
   $('#update-country').click(function(e) {
     e.preventDefault();
     var elements = updateCountryElements();
-    if (noEmptyFields(elements) && countrySelected()) {
+    if (noEmptyFields(elements) && countrySelected() && onlyLetters() && onlyNumbersAndDecimal()) {
       var countryObject = buildCountryObject('-update');
       countryObject.country = $('#country-update-select').val();
       updateCountry(countryObject);
-    } else {
-      alert('Please fill out all fields to update a country.');
     }
   });
   

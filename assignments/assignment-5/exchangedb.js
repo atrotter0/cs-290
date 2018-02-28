@@ -86,7 +86,7 @@ exports.createCountry = function(req, res) {
       if (item) {
         res.status(500).send(item);
       } else {
-        console.log("didn't find the country, inserting...");
+        console.log("didn't find a duplicate country, inserting...");
         collection.insert({
           "country": req.body.country.country,
           "notation": req.body.country.notation,
@@ -94,6 +94,7 @@ exports.createCountry = function(req, res) {
           "commission": req.body.country.commission,
           "multiplier": req.body.country.multiplier
         });
+      res.send('inserted country!');
       }
     });
   });
@@ -133,7 +134,7 @@ exports.runExchange = function(req, res) {
   var id1 = req.params.country1;
   var id2 = req.params.country2;
   var amt = req.params.amount;
-  console.log('params:' + id1 + ', ' + id2 + ' ' + amt);
+  console.log('params:' + id1 + ', ' + id2 + ', ' + amt);
   returnCountryData(req, res, id1, id2, amt);
 }
 
@@ -164,13 +165,12 @@ function buildResponse(object1, object2, amt, res, req) {
   var usd1 = amt / object1.multiplier;
   var usd2 = amt / object2.multiplier;
   var finalResult = usd1 - usd2;
-  console.log("final result: " + finalResult);
   finalResult.toString();
   var resultObject = {
     "name1": object1.country,
     "usd1": usd1,
     "notation1": object1.notation,
-    "name2": object2.notation,
+    "name2": object2.country,
     "usd2": usd2,
     "notation2": object2.notation,
     "amount": amt,
