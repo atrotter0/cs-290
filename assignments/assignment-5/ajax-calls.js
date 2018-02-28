@@ -118,6 +118,13 @@ function resetFields() {
     $(this).val('');
   });
   $('.country-select :nth-child(1)').prop('selected', true);
+  clearLog();
+}
+
+function clearLog() {
+  $('#result-1').text("");
+  $('#result-2').text("");
+  $('#final-result').text("");
 }
 
 function countrySelected() {
@@ -129,11 +136,46 @@ function countrySelected() {
   }
 }
 
+function getExchangeData(country1, country2, amt) {
+  $.ajax({
+    url:"/exchange/" + country1 + "/" + country2 + "/" + amt,
+    success: function(data) {
+      console.log(data);
+      displayResults(data);
+    },
+    error: function(err) {
+      console.log('Error retrieving new country: ' + JSON.stringify(err));
+   }
+  })
+}
+
+function displayResults(results) {
+  var firstResult = 'Exchange rate for ' + results.name1 + ' for ' + results.amount + 'USD: ' +  results.usd1;
+  var secondResult = 'Exchange rate for ' + results.name1 + ' for '  + results.amount + 'USD: ' +  results.usd2;
+  var finalResult = 'Exchanging ' + results.amount + ' ' + results.notation1 + ' will give you ' + results.amount + ' ' + results.notation2 + '.';
+  $('#result-1').text(firstResult);
+  $('#result-2').text(secondResult);
+  $('#final-result').text(finalResult);
+}
+
+function exchangeCheck() {
+  c1 = $('#from-country').val();
+  c2 = $('#to-country').val();
+  amt = $('#amount').val();
+  if( c1 != c2 && amt != "") {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
 $(document).ready(function() {
   getData();
   
   $('#exchange, #update').click(function() {
     getData();
+    resetFields();
   });
   
   $('#add-country').click(function(e) {
@@ -170,5 +212,17 @@ $(document).ready(function() {
   
   $('.resetBtn').click(function() {
     resetFields();
+  });
+  
+  $('#exchangeBtn').click(function(e) {
+    e.preventDefault();
+    var country1 = $('#from-country').val();
+    var country2 = $('#to-country').val();
+    var amt = $('#amount').val();
+    if (exchangeCheck()) {
+      getExchangeData(country1, country2, amt);
+    } else {
+      alert('Please enter a valid amount, and select two unique countries.'); 
+    }
   });
 });

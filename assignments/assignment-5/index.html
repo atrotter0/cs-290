@@ -31,11 +31,16 @@
             </select>
           </div>
           <div class="window-block">
-            <label for="amount">Amount:</label><br/><input type="text"><br/><br/>
-            <button class="resetBtn">Reset</button><button>Submit</button>
+            <label for="amount">Amount:</label><br/>
+            <input type="text" id="amount" onkeypress='return event.charCode >= 48 && event.charCode <= 57'><br/><br/>
+            <button class="resetBtn">Reset</button><input type="submit" id="exchangeBtn" value="Submit">
           </div>
           <div class="window-block">
-            <div class="log"></div>
+            <div class="log" id="log-window">
+              <div id="result-1"></div>
+              <div id="result-2"></div>
+              <div id="final-result"></div>
+            </div>
           </div>
         </div>
         <div id="add-tab" class="tabcontent">
@@ -60,7 +65,7 @@
             <input type="text" id="commission-add" reqiured>
           </div>
           <div class="wide-block center">
-            <button class="resetBtn">Reset</button><input type="submit" id="add-country" nosubmit="true" value="Add Country">
+            <button class="resetBtn">Reset</button><input type="submit" id="add-country" value="Add Country">
           </div>
         </div>
         <div id="update-tab" class="tabcontent">

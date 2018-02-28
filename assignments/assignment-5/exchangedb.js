@@ -133,16 +133,14 @@ exports.runExchange = function(req, res) {
 //get country data for each country param
 function returnCountryData(req, res, id1, id2, amt) {
   db.collection('rates', function(err, collection) {
-    var multiplier1, multiplier2;
-    collection.findOne({'country':id1}, function(err, item1, multiplier1) {
+    var firstObject, secondObject;
+    collection.findOne({'country':id1}, function(err, item1, firstObject) {
       if (item1) {
-        var multiplier1 = item1.multiplier;
-        console.log('multiplier1: ' + multiplier1);
-        collection.findOne({'country':id2}, function(err, item2, multiplier2) {
+        firstObject = item1;
+        collection.findOne({'country':id2}, function(err, item2, secondObject) {
           if(item2) {
-            var multiplier2 = item2.multiplier;
-            console.log('multiplier2: ' + multiplier2);
-            buildResponse(multiplier1, multiplier2, amt, res, req);
+            var secondObject = item2;
+            buildResponse(firstObject, secondObject, amt, res, req);
           } else {
             res.send('{"error":"No entry found for country '+ id2 +'"}');
           }
@@ -155,15 +153,20 @@ function returnCountryData(req, res, id1, id2, amt) {
 }
 
 //build our response object and make final exchange calculations
-function buildResponse(multiplier1, multiplier2, amt, res, req) {
-  var usd1 = amt / multiplier1;
-  var usd2 = amt / multiplier2;
+function buildResponse(object1, object2, amt, res, req) {
+  var usd1 = amt / object1.multiplier;
+  var usd2 = amt / object2.multiplier;
   var finalResult = usd1 - usd2;
   console.log("final result: " + finalResult);
   finalResult.toString();
   var resultObject = {
+    "name1": object1.country,
     "usd1": usd1,
+    "notation1": object1.notation,
+    "name2": object2.notation,
     "usd2": usd2,
+    "notation2": object2.notation,
+    "amount": amt,
     "finalResult": finalResult
   }
   res.send(resultObject);

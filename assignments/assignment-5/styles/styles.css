@@ -92,6 +92,8 @@ header {
   background-color: #f1f1f1;
   border: 1px solid #ddd;
   border-radius: 5px;
+  text-align: left;
+  font-size: 0.8em;
 }
 
 label {
@@ -142,4 +144,3 @@ footer {
   color: #fff;
   text-align: center;
 }
-
