@@ -176,9 +176,9 @@ function displayResults(results) {
 }
 
 function countryCheck() {
-  var c1 = $('#from-country').val();
-  var c2 = $('#to-country').val();
-  if ( c1 != c2) {
+  var country1 = $('#from-country').val();
+  var country2 = $('#to-country').val();
+  if (country1 != country2 && country1 && country2) {
     return true;
   } else {
     alert('Please select two different countries to exchange funds between.');
