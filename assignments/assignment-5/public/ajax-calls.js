@@ -175,14 +175,23 @@ function displayResults(results) {
       .append(' ' + results.notation2 + '.');
 }
 
-function exchangeCheck() {
-  c1 = $('#from-country').val();
-  c2 = $('#to-country').val();
-  amt = $('#amount').val();
-  if( c1 != c2 && amt != "") {
+function countryCheck() {
+  var c1 = $('#from-country').val();
+  var c2 = $('#to-country').val();
+  if ( c1 != c2) {
     return true;
+  } else {
+    alert('Please select two different countries to exchange funds between.');
+    return false;
   }
-  else {
+}
+
+function amountCheck() {
+  var amt = $('#amount').val();
+  if (amt != "") {
+    return true;
+  } else {
+    alert('Please enter an amount to exchange.');
     return false;
   }
 }
@@ -215,14 +224,12 @@ function onlyWholeNumbers(element) {
 }
 
 function displayInputError(element, msg) {
-  console.log('display error');
   $(element).css('border', '1px solid red');
   $('.error-display').css('visibility', 'visible').text(msg);
   $('#update-country, #add-country, #exchangeBtn').prop('disabled', 'true').css('border', '1px solid #ccc');
 }
 
 function resetInputError(element) {
-  console.log('resetting');
   $(element).css('border', '1px solid #ccc');
   $('.error-display').css('visibility', 'hidden').text('');
   $('#update-country, #add-country, #exchangeBtn').removeAttr('disabled').css('border', '1px solid #000');
@@ -273,10 +280,8 @@ $(document).ready(function() {
     var country1 = $('#from-country').val();
     var country2 = $('#to-country').val();
     var amt = $('#amount').val();
-    if (exchangeCheck()) {
+    if (countryCheck() && amountCheck()) {
       getExchangeData(country1, country2, amt);
-    } else {
-      alert('Please select two different countries to exchange funds between.'); 
     }
   });
   
