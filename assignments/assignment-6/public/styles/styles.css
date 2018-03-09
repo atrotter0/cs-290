@@ -45,15 +45,13 @@ input[type=checkbox] {
   appearance: none;
   border: 1px solid #000;
   margin-right: 10px;
-  transition: background 0.5s, box-shadow 1s, border-radius 1s;
+  transition: background 0.5s, border-radius 1s;
   border-radius: 2px;
 }
 
 input[type="checkbox"]:checked{
   background-color: #75E2E2;
   border-radius: 50px;
-  border: 1px solid #fff;
-  box-shadow: 2px 2px 2px #4e4e4e4e;
 }
 input[type="checkbox"]:focus{
   outline: 0 none;
