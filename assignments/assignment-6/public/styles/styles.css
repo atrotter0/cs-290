@@ -8,6 +8,11 @@ body {
   width: 100%;
 }
 
+.welcome-screen {
+  width: 100%;
+  display: block;
+}
+
 header {
   margin: 0 auto;
   text-align: center;
@@ -50,7 +55,7 @@ input[type=checkbox] {
 }
 
 input[type="checkbox"]:checked{
-  background-color: #75E2E2;
+  background-color: #0d4aa5;
   border-radius: 50px;
 }
 input[type="checkbox"]:focus{
@@ -102,9 +107,46 @@ input[type=submit] {
 input[type=submit]:hover {
   box-shadow: 2px 2px 2px #4e4e4e;
   letter-spacing: 2px;
-  background-color: #75E2E2;
+  background-color: #0d4aa5;
   color: #fff;
   border: 1px solid #fff;
+}
+
+.game-container {
+  display: none;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.game-board {
+  width: 80%;
+  border: 1px solid blue;
+  min-height: 500px;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.category {
+  display: inline-block;
+  width: 20%;
+  text-align: center;
+}
+
+.category-title-block, .question-point-block {
+  width: 100%;
+  background-color: #0d4aa5;
+  border: 1px solid #000;
+  height: 100px;
+  min-height: 100px;
+  line-height: 100px;
+  font-size: 2em;
+  color: #f9c402;
+}
+
+.question-point-block {
+  color: #fff;
+  cursor: pointer;
 }
 
 footer {
