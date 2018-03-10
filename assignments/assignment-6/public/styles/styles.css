@@ -120,16 +120,17 @@ input[type=submit]:hover {
 
 .game-board {
   width: 80%;
-  border: 1px solid blue;
   min-height: 500px;
   height: auto;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 20px;
 }
 
 .category {
-  display: inline-block;
-  width: 20%;
+  display: none;
+  width: 19.5%;
+  margin: 0 auto;
   text-align: center;
 }
 
