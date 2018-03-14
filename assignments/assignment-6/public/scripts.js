@@ -25,9 +25,33 @@ function displayGameBoard() {
   $('.game-container').css('display', 'block');
 }
 
+function authenticate(username, password) {
+  $.ajax({
+    url: "/login",
+    method: "post",
+    data: {
+      username: username,
+      password: password
+    },
+    success: function(data) {
+      console.log('auth success!')
+      window.location = '/admin.html';
+    },
+    error: function(err, data) {
+      alert('Error authenticating');
+    }
+  })
+}
+
 $(document).ready(function() {
   $('#nextBtn').click(function() {
-    console.log('made it here');
+    console.log('next button clicked!');
     startGame();
   })
+  
+  $('#loginBtn').click(function() {
+    var username = $('#username').val();
+    var password = $('#password').val();
+    authenticate(username, password);
+  });
 });

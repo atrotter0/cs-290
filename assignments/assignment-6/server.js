@@ -11,8 +11,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 
 app.get("/", function(req, res) {
-  res.sendfile('index.html');
+  res.sendfile('public/index.html');
 });
+
+app.get("/login", function(req, res) {
+  res.sendfile('public/login.html');
+});
+
+app.get("/admin", function(req, res) {
+  res.sendfile('public/admin.html');
+});
+
+app.post('/login', mydb.findAndLogin);
 
 app.get('/jeopardy/findall', mydb.findAll);
 

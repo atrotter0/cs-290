@@ -7,7 +7,13 @@ db.open(function(err,db) {
     db.collection('questions',{strict:true},function(err,collection){
       if(err) {
         console.log("The jeopardy collection doesn't exist. Lets populate it...");
-        populateDB();
+        populateQuestionsDB();
+      }
+    })
+    db.collection('users',{strict:true},function(err,collection){
+      if(err) {
+        console.log("The jeopardy collection users doesn't exist. Lets populate it...");
+        populateUsersDB();
       }
     })
   } else {
@@ -15,22 +21,61 @@ db.open(function(err,db) {
   }
 });
 
-//preload db
-function populateDB() {
+//preload questions db
+function populateQuestionsDB() {
   var questions = [
-    {category: "HTML", pointValue: "100", questionText: "What is on the first line of an HTML document?", answerText:"<!DOCTYPE html>"}
+    {category: "html", pointValue: "100", questionText: "What is on the first line of an HTML document?", answerText:"<!DOCTYPE html>"}
   ];
   db.collection('questions', function(err, collection) {
     collection.insert(questions, {safe:true}, function(err, result) {
       if (err) console.log("ERROR");
-      else console.log("Collection populated.");
+      else console.log("Questions collection populated.");
     });
   });
 }
 
-//get all data from db
+//preload users db
+function populateUsersDB() {
+  var users = [
+    {username: "admin", password: "123"},
+    {username: "test1", password: "123"}
+  ];
+  db.collection('users', function(err, collection) {
+    collection.insert(users, {safe:true}, function(err, result) {
+      if (err) console.log("ERROR");
+      else console.log("Users collection populated.");
+    });
+  });
+}
+
+exports.findAndLogin = function(req, res) {
+  var username = req.body.username;
+  var password = req.body.password;
+  db.collection('users', function(err, collection) {
+    collection.findOne({'username': username}, function(err, result) {
+      if (result) {
+        console.log('found user');
+        checkPassword(result, password, req, res);
+      } else {
+        console.log("danger will robinson, we did not find a user");
+      }
+    })
+  });
+}
+
+function checkPassword(result, password, req, res) {
+  if (result.password == password) {
+    console.log('matched password');
+    res.send(200);
+  } else {
+    console.log('bad password');
+    res.status(500);
+  }
+}
+
+//get all data from questions db
 exports.findAll = function(req,res) {
-  var cursor = db.collection('questions').find( ).toArray(function (err, result) {
+  var cursor = db.collection('questions').find().toArray(function (err, result) {
     if (!err) {
       res.send(result);
     }
@@ -42,5 +87,8 @@ exports.findAll = function(req,res) {
 exports.nuke = function(req, res) {
   console.log('dropping db...');
   db.collection('questions').drop();
+  db.collection('users').drop();
   res.send('db dropped. Restart your server to repopulate your db.');
 }
+
+
