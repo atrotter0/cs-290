@@ -34,11 +34,12 @@ function authenticate(username, password) {
       password: password
     },
     success: function(data) {
-      console.log('auth success!')
-      window.location = '/admin.html';
+      console.log('auth success!');
+      document.cookie = "loggedIn=true; expires=Thu, 18 Dec 2018 12:00:00 UTC; path=/";
+      window.location = '/admin';
     },
     error: function(err, data) {
-      alert('Error authenticating');
+      alert('Username or password is incorrect.');
     }
   })
 }

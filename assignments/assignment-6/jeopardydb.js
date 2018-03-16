@@ -49,6 +49,7 @@ function populateUsersDB() {
 }
 
 exports.findAndLogin = function(req, res) {
+  console.log(req.session);
   var username = req.body.username;
   var password = req.body.password;
   db.collection('users', function(err, collection) {
@@ -58,6 +59,7 @@ exports.findAndLogin = function(req, res) {
         checkPassword(result, password, req, res);
       } else {
         console.log("danger will robinson, we did not find a user");
+        res.status(500).send();
       }
     })
   });
@@ -65,11 +67,11 @@ exports.findAndLogin = function(req, res) {
 
 function checkPassword(result, password, req, res) {
   if (result.password == password) {
-    console.log('matched password');
+    console.log('matched password, redirecting...');
     res.send(200);
   } else {
     console.log('bad password');
-    res.status(500);
+    res.status(500).send();
   }
 }
 
@@ -90,5 +92,3 @@ exports.nuke = function(req, res) {
   db.collection('users').drop();
   res.send('db dropped. Restart your server to repopulate your db.');
 }
-
-
