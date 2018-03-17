@@ -1,3 +1,5 @@
+var DATA = [];
+
 function startGame() {
   loadCategoryTitles();
   displayGameBoard();
@@ -27,8 +29,8 @@ function displayGameBoard() {
 
 function authenticate(username, password) {
   $.ajax({
-    url: "/login",
-    method: "post",
+    url: '/login',
+    method: 'POST',
     data: {
       username: username,
       password: password
@@ -44,6 +46,92 @@ function authenticate(username, password) {
   })
 }
 
+function resetAllFields() {
+  $('#admin-question-select-block').css('display', 'none');
+  $('#question-block').css('display', 'none')
+  $('#admin-submit-block').css('display', 'none');
+  
+}
+
+function valueSelected(element) {
+  var optionVal = $(element).val();
+  console.log(optionVal);
+  if (optionVal == "") {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+function loadAdminCategoryData(category) {
+  $.ajax({
+    url: '/jeopardy/' + category,
+    success: function(data) {
+      console.log('here\'s your category data: ');
+      console.log(data);
+      saveData(data);
+      displayQuestionSelect(data);
+    },
+    error: function(err, data) {
+      alert('Error retrieving category data.');
+    }
+  })
+}
+
+function saveData(questions) {
+  DATA = questions;
+  console.log('New DATA global: ' + DATA);
+}
+
+function displayQuestionSelect(data) {
+  $('#admin-question-select-block').css('display', 'block');
+  loadAdminQuestions(data);
+}
+
+function loadAdminQuestions(data) {
+  resetSelect();
+  for(var i = 0; i < data.length; i++) {
+    $('#admin-question-select').append($('<option>', {
+      value: data[i].pointValue,
+      text: data[i].questionText
+    }));
+  }
+}
+
+function resetSelect() {
+  $('#admin-question-select').empty().append($('<option>', {
+    value: "",
+    text: '-'
+  }));
+  $('#admin-question-select :nth-child(1)').prop('selected', true);
+}
+
+function loadAdminQuestionForm(question) {
+  console.log('Question: ' + question);
+  var questionObject = findQuestion(question);
+  loadFormFields(questionObject);
+  displayFormDiv();
+}
+
+function findQuestion(points) {
+  for(var i = 0; i < DATA.length; i++) {
+    if (DATA[i].pointValue == points) {
+      return DATA[i];
+    }
+  }
+}
+
+function loadFormFields(questionObject) {
+  $('#admin-point-value').val(questionObject.pointValue);
+  $('#admin-question-text').val(questionObject.questionText);
+  $('#admin-answer-text').val(questionObject.answerText);
+}
+
+function displayFormDiv() {
+  $('#question-block').css('display', 'block')
+  $('#admin-submit-block').css('display', 'block');
+}
+
 $(document).ready(function() {
   $('#nextBtn').click(function() {
     console.log('next button clicked!');
@@ -54,5 +142,22 @@ $(document).ready(function() {
     var username = $('#username').val();
     var password = $('#password').val();
     authenticate(username, password);
+  });
+  
+  $('#admin-category-select').change(function() {
+    resetAllFields();
+    var ele = $(this);
+    if (valueSelected(ele)) {
+      var option = $(this).val();
+      loadAdminCategoryData(option); 
+    }
+  });
+  
+  $('#admin-question-select').change(function() {
+    var ele = $(this);
+    if (valueSelected(ele)) {
+      var pointValue = $(this).val();
+      loadAdminQuestionForm(pointValue);
+    }
   });
 });

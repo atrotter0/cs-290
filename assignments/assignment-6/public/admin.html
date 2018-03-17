@@ -10,19 +10,37 @@
   <body>
     <div class="container">
       <div class="content-block login-block">
-        <h3>Select a category:</h3>
-        <select>
-          <option value="">-</option>
-          <option value="html">HTML</option>
-          <option value="css">CSS</option>
-          <option value="js">JavaScript</option>
-          <option value="jquery">jQuery</option>
-          <option value="node">Node</option>
-          <option value="mongo">Mongo</option>
-        </select>
-        <div class="results">
-          
+        <div class="admin-content-block" id="admin-category-select-block">
+          <h3>Select a Category:</h3>
+          <select id="admin-category-select">
+            <option name="default" value="">-</option>
+            <option name="html" value="html">HTML</option>
+            <option name="css" value="css">CSS</option>
+            <option name="js" value="js">JavaScript</option>
+            <option name="jquery" value="jquery">jQuery</option>
+            <option name="node" value="node">Node</option>
+            <option name="mongo" value="mongo">Mongo</option>
+          </select>
         </div>
+        <div class="admin-content-block" id="admin-question-select-block">
+          <h3>Select a Question:</h3>
+          <select id="admin-question-select">
+            <option value="">-</option>
+          </select>
+        </div>
+      </div>
+      <div class="content-block login-block" id="question-block">
+        <div class="admin-content-block" id="admin-question-block">
+          <label for="points">Point Value:</label><br/>
+          <input type="text" id="admin-point-value" name="points"><br/>
+          <label for="question">Question Text:</label><br/>
+          <input type="text" id="admin-question-text" name="question"><br/>
+          <label for="answer">Answer Text:</label><br/>
+          <input type="text" id="admin-answer-text" name="answer"><br/>
+        </div>
+      </div>
+      <div class="submit-block" id="admin-submit-block">
+        <input type="submit" value="Update >>" id="updateBtn">
       </div>
     </div>
   </body>

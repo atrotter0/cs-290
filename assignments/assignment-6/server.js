@@ -40,6 +40,8 @@ app.post('/login', mydb.findAndLogin);
 
 app.get('/jeopardy/findall', mydb.findAll);
 
+app.get('/jeopardy/:category', mydb.getDataForCategory);
+
 //do not run unless you want to drop your existing db and start from scratch
 app.get('/nuke', mydb.nuke);
 

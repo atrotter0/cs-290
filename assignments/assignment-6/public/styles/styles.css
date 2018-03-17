@@ -31,10 +31,6 @@ header {
   margin-right: auto;
 }
 
-.checkbox-block {
-
-}
-
 .label-block {
   display: inline-block;
   line-height: 45px;
@@ -62,9 +58,8 @@ input[type="checkbox"]:focus{
   outline: 0 none;
 }
 
-label {
+.check-label {
   padding: 20px;
-  cursor: pointer;
 }
 
 input[type=text], input[type=password] {
@@ -73,9 +68,11 @@ input[type=text], input[type=password] {
   min-width: 180px;
   padding-left: 15px;
   margin-top: 20px;
+  margin-bottom: 20px;
   border: 1px solid #000;
   border-radius: 2px;
   font-size: 1em;
+  background-color: #F5F5F5;
 }
 
 input[type=text]:focus, textarea:focus, input[type=password]:focus {
@@ -152,6 +149,45 @@ input[type=submit]:hover {
 
 .content-block input[type=password] {
   margin-bottom: 40px;
+}
+
+.admin-content-block {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  min-height: 10px;
+  height: auto;
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#admin-question-select-block {
+  display: none;
+}
+
+#admin-submit-block {
+  display: none;
+  width: 50%;
+  text-align: right;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#question-block {
+  display: none;
+}
+
+#admin-question-block {
+  width: 100%;
+}
+
+select {
+  height: 50px;
+  width: auto;
+  border: 1px solid #000;
 }
 
 footer {
