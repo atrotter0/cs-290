@@ -48,6 +48,7 @@ input[type=checkbox] {
   margin-right: 10px;
   transition: background 0.5s, border-radius 1s;
   border-radius: 2px;
+  background-color: #F5F5F5;
 }
 
 input[type="checkbox"]:checked{

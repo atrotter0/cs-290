@@ -50,7 +50,6 @@ function resetAllFields() {
   $('#admin-question-select-block').css('display', 'none');
   $('#question-block').css('display', 'none')
   $('#admin-submit-block').css('display', 'none');
-  
 }
 
 function valueSelected(element) {
@@ -143,19 +142,17 @@ $(document).ready(function() {
     var password = $('#password').val();
     authenticate(username, password);
   });
-  
+
   $('#admin-category-select').change(function() {
     resetAllFields();
-    var ele = $(this);
-    if (valueSelected(ele)) {
+    if (valueSelected($(this))) {
       var option = $(this).val();
-      loadAdminCategoryData(option); 
+      loadAdminCategoryData(option);
     }
   });
-  
+
   $('#admin-question-select').change(function() {
-    var ele = $(this);
-    if (valueSelected(ele)) {
+    if (valueSelected($(this))) {
       var pointValue = $(this).val();
       loadAdminQuestionForm(pointValue);
     }

@@ -94,12 +94,31 @@ exports.findAll = function(req,res) {
 exports.getDataForCategory = function(req, res) {
   res.setHeader('Content-Type', 'application/json');
   var id = req.params.category;
-  console.log('here is our category param: ' + id);
+  console.log('our category param: ' + id);
   returnCategory(req, res, id);
 }
 
 function returnCategory(req, res, id) {
   var cursor = db.collection('questions').find({ category: id }).toArray(function (err, result) {
+    if (!err) {
+      var item = result;
+      res.send(item);
+    }
+    res.end();
+  });
+}
+
+//return question for a given category and point value
+exports.questionByCategoryAndPtVal = function(req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  var id = req.params.category;
+  var ptVal = req.params.pointValue;
+  console.log('our params: ' + id + ' ' + ptVal);
+  returnQuestion(req, res, id, ptVal);
+}
+
+function returnQuestion(req, res, id, ptVal) {
+  var cursor = db.collection('questions').find({ category: id, pointValue: ptVal }).toArray(function (err, result) {
     if (!err) {
       var item = result;
       res.send(item);
