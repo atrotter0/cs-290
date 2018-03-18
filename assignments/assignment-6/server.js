@@ -44,6 +44,8 @@ app.get('/jeopardy/:category', mydb.getDataForCategory);
 
 app.get('/jeopardy/:category/:pointValue', mydb.questionByCategoryAndPtVal);
 
+app.post('/jeopardy/question', mydb.updateQuestion);
+
 //do not run unless you want to drop your existing db and start from scratch
 app.get('/nuke', mydb.nuke);
 

@@ -54,8 +54,8 @@ function resetAllFields() {
 
 function valueSelected(element) {
   var optionVal = $(element).val();
-  console.log(optionVal);
   if (optionVal == "") {
+    hideFormDiv();
     return false;
   } else {
     return true;
@@ -66,8 +66,6 @@ function loadAdminCategoryData(category) {
   $.ajax({
     url: '/jeopardy/' + category,
     success: function(data) {
-      console.log('here\'s your category data: ');
-      console.log(data);
       saveData(data);
       displayQuestionSelect(data);
     },
@@ -79,7 +77,6 @@ function loadAdminCategoryData(category) {
 
 function saveData(questions) {
   DATA = questions;
-  console.log('New DATA global: ' + DATA);
 }
 
 function displayQuestionSelect(data) {
@@ -106,7 +103,6 @@ function resetSelect() {
 }
 
 function loadAdminQuestionForm(question) {
-  console.log('Question: ' + question);
   var questionObject = findQuestion(question);
   loadFormFields(questionObject);
   displayFormDiv();
@@ -121,14 +117,65 @@ function findQuestion(points) {
 }
 
 function loadFormFields(questionObject) {
+  console.log('loading form fields');
   $('#admin-point-value').val(questionObject.pointValue);
   $('#admin-question-text').val(questionObject.questionText);
   $('#admin-answer-text').val(questionObject.answerText);
 }
 
+function clearFormFields() {
+  $('#admin-point-value').val('');
+  $('#admin-question-text').val('');
+  $('#admin-answer-text').val('');
+}
+
 function displayFormDiv() {
   $('#question-block').css('display', 'block')
   $('#admin-submit-block').css('display', 'block');
+}
+
+function hideFormDiv() {
+  $('#question-block').css('display', 'none')
+  $('#admin-submit-block').css('display', 'none');
+  clearFormFields();
+}
+
+function fieldsHaveValues() {
+  if ($('#admin-point-value').val() != '' || $('#admin-question-text').val() != '' || $('#admin-answer-text').val() != '') {
+    return true;
+  }
+}
+
+function buildQuestionObject() {
+  var question = {
+    'category': $('#admin-category-select').val(),
+    'pointValue': $('#admin-point-value').val(),
+    'questionText': $('#admin-question-text').val(),
+    'answerText': $('#admin-answer-text').val()
+  };
+  return question;
+}
+
+function updateQuestion(updatedQuestion) {
+  $.ajax({
+    url: "/jeopardy/question",
+    method: "POST",
+    data: { question: updatedQuestion },
+    success: function(data) {
+      resetSelect();
+      hideFormDiv();
+      pullNewData();
+      alert('Successfully updated question!');
+    },
+    error: function(err, data) {
+      console.log('Error updating question: ' + JSON.stringify(err));
+    }
+  })
+}
+
+function pullNewData() {
+  var option = $('#admin-category-select').val();
+  loadAdminCategoryData(option);
 }
 
 $(document).ready(function() {
@@ -155,6 +202,15 @@ $(document).ready(function() {
     if (valueSelected($(this))) {
       var pointValue = $(this).val();
       loadAdminQuestionForm(pointValue);
+    }
+  });
+
+  $('#updateBtn').click(function() {
+    if (fieldsHaveValues()) {
+      var questionObject = buildQuestionObject();
+      updateQuestion(questionObject);
+    } else {
+      alert('Please fill out all fields to update a question.');
     }
   });
 });

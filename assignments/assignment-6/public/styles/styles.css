@@ -191,6 +191,10 @@ select {
   border: 1px solid #000;
 }
 
+.field-disabled {
+  cursor: not-allowed;
+}
+
 footer {
   width: 100%;
   background-color: #000;

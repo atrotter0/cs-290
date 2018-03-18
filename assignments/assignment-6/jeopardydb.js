@@ -127,6 +127,25 @@ function returnQuestion(req, res, id, ptVal) {
   });
 }
 
+//update a question
+exports.updateQuestion = function(req, res) {
+  db.collection('questions', function(err, collection) {
+    collection.findAndModify(
+      { category: req.body.question.category, pointValue: req.body.question.pointValue },
+      { rating: 1 },
+      { $set: {
+        questionText: req.body.question.questionText,
+        answerText: req.body.question.answerText
+      }},
+      { new: true, upsert: false},
+      function(err, doc) {
+        console.log('updated question: ' + JSON.stringify(doc));
+      }
+    );
+    res.send('updated question!');
+  });
+}
+
 //drop db
 exports.nuke = function(req, res) {
   console.log('dropping db...');
