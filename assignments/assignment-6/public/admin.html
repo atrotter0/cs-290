@@ -9,7 +9,10 @@
   </head>
   <body>
     <div class="container">
+      <h1 class="center">Admin Panel</h1>
+      <div class="login-logout-block"><a href="/logout"><button>Logout</button></a></div>
       <div class="content-block login-block">
+        <h1 class="center"><h2 class="center">Options</h2>
         <div class="admin-content-block" id="admin-category-select-block">
           <h3>Select a Category:</h3>
           <select id="admin-category-select">
@@ -30,12 +33,13 @@
         </div>
       </div>
       <div class="content-block login-block" id="question-block">
+        <h1 class="center"><h2 class="center">Question</h2>
         <div class="admin-content-block" id="admin-question-block">
-          <label for="points">Point Value:</label><br/>
+          <label for="points"><h4>Point Value:</h4></label>
           <input type="text" id="admin-point-value" name="points" class='field-disabled' disabled><br/>
-          <label for="question">Question Text:</label><br/>
+          <label for="question"><h4>Question Text:</h4></label>
           <input type="text" id="admin-question-text" name="question"><br/>
-          <label for="answer">Answer Text:</label><br/>
+          <label for="answer"><h4>Answer Text:</h4></label>
           <input type="text" id="admin-answer-text" name="answer"><br/>
         </div>
       </div>

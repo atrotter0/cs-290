@@ -8,6 +8,10 @@ body {
   width: 100%;
 }
 
+.center {
+  text-align: center;
+}
+
 .welcome-screen {
   width: 100%;
   display: block;
@@ -68,7 +72,6 @@ input[type=text], input[type=password] {
   width: 50%;
   min-width: 180px;
   padding-left: 15px;
-  margin-top: 20px;
   margin-bottom: 20px;
   border: 1px solid #000;
   border-radius: 2px;
@@ -90,7 +93,7 @@ input[type=text]:focus, textarea:focus, input[type=password]:focus {
   margin-bottom: 20px;
 }
 
-input[type=submit] {
+input[type=submit], button {
   height: 45px;
   width: 100px;
   background-color: #fff;
@@ -102,7 +105,7 @@ input[type=submit] {
   font-size: 1em;
 }
 
-input[type=submit]:hover {
+input[type=submit]:hover, button:hover {
   box-shadow: 2px 2px 2px #4e4e4e;
   letter-spacing: 2px;
   background-color: #0d4aa5;
@@ -193,6 +196,12 @@ select {
 
 .field-disabled {
   cursor: not-allowed;
+}
+
+.login-logout-block {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 footer {

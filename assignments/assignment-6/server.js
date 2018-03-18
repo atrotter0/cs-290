@@ -21,6 +21,11 @@ app.get('/login', function(req, res) {
   res.sendfile('public/login.html');
 });
 
+app.get('/logout', function(req, res) {
+  res.clearCookie("loggedIn");
+  res.send('You have been logged out.');
+});
+
 //check to see if user is logged in
 app.use('/admin', function (req, res, next) {
   if (req.cookies.loggedIn) {
