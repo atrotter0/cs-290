@@ -129,13 +129,26 @@ function returnQuestion(req, res, id, ptVal) {
 
 //update a question
 exports.updateQuestion = function(req, res) {
+  if (req.cookies.loggedIn) {
+    console.log('user is logged in');
+    runUpdateQuestion(req, res);
+  } else {
+    res.send('You cannot perform this action unless you are logged in.');
+  }
+}
+
+function runUpdateQuestion(req, res) {
+  var safeCategory = decodeURIComponent(req.body.question.category);
+  var safePtVal = decodeURIComponent(req.body.question.pointValue);
+  var safeQuestion = decodeURIComponent(req.body.question.questionText);
+  var safeAnswer = decodeURIComponent(req.body.question.answerText);
   db.collection('questions', function(err, collection) {
     collection.findAndModify(
-      { category: req.body.question.category, pointValue: req.body.question.pointValue },
+      { category: safeCategory, pointValue: safePtVal },
       { rating: 1 },
       { $set: {
-        questionText: req.body.question.questionText,
-        answerText: req.body.question.answerText
+        questionText: safeQuestion,
+        answerText: safeAnswer
       }},
       { new: true, upsert: false},
       function(err, doc) {

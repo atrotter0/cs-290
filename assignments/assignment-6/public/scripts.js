@@ -148,10 +148,10 @@ function fieldsHaveValues() {
 
 function buildQuestionObject() {
   var question = {
-    'category': $('#admin-category-select').val(),
-    'pointValue': $('#admin-point-value').val(),
-    'questionText': $('#admin-question-text').val(),
-    'answerText': $('#admin-answer-text').val()
+    'category': encodeURIComponent($('#admin-category-select').val()),
+    'pointValue': encodeURIComponent($('#admin-point-value').val()),
+    'questionText': encodeURIComponent($('#admin-question-text').val()),
+    'answerText': encodeURIComponent($('#admin-answer-text').val())
   };
   return question;
 }
