@@ -1,0 +1,241 @@
+/* assignment 6 css */
+
+body {
+  font-family: Arial;
+}
+
+.container {
+  width: 100%;
+}
+
+.welcome-screen {
+  width: 100%;
+  display: block;
+}
+
+header {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.content-block {
+  width: 50%;
+  border: 1px solid #000;
+  border-radius: 5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  min-height: 200px;
+  height: auto;
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.checkbox-block {
+
+}
+
+.label-block {
+  display: inline-block;
+  line-height: 45px;
+  height: 45px;
+  vertical-align: top;
+}
+
+input[type=checkbox] {
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  border: 1px solid #000;
+  margin-right: 10px;
+  transition: background 0.5s, border-radius 1s;
+  border-radius: 2px;
+}
+
+input[type="checkbox"]:checked{
+  background-color: #0d4aa5;
+  border-radius: 50px;
+}
+input[type="checkbox"]:focus{
+  outline: 0 none;
+}
+
+label {
+  padding: 20px;
+  cursor: pointer;
+}
+
+input[type=text] {
+  height: 45px;
+  width: 50%;
+  min-width: 180px;
+  padding-left: 15px;
+  margin-top: 20px;
+  border: 1px solid #000;
+  border-radius: 2px;
+  font-size: 1em;
+}
+
+input[type=text]:focus, textarea:focus {
+  outline: none;
+  box-shadow: 2px 2px 2px #4e4e4e;
+}
+
+#submit-block {
+  width: 50%;
+  text-align: right;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+input[type=submit] {
+  height: 45px;
+  width: 100px;
+  background-color: #fff;
+  border: 1px solid #000;
+  border-radius: 5px;
+  margin-right: 10px;
+  transition: box-shadow 0.5s, letter-spacing 1s, background 0.5s;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+input[type=submit]:hover {
+  box-shadow: 2px 2px 2px #4e4e4e;
+  letter-spacing: 2px;
+  background-color: #0d4aa5;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+.game-container {
+  display: none;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.game-board {
+  width: 80%;
+  min-height: 500px;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+
+.category {
+  display: none;
+  width: 19.5%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.category-title-block, .question-point-block {
+  width: 100%;
+  background-color: #0d4aa5;
+  border: 1px solid #000;
+  height: 100px;
+  min-height: 100px;
+  line-height: 100px;
+  font-size: 2em;
+  color: #f9c402;
+}
+
+.question-point-block {
+  color: #fff;
+  cursor: pointer;
+}
+
+footer {
+  width: 100%;
+  background-color: #000;
+  height: 45px;
+  line-height: 45px;
+  color: #fff;
+  text-align: center;
+}
+
+.question-window{
+  height: 60%;
+  width: 60%;
+  z-index: 3;
+  position: fixed;
+  top: 20%;
+  left: 20%;
+  background-color: lightblue;
+  display: none;
+}
+
+.question-close{
+  text-align: right;
+  height: 10%
+}
+
+.question-field{
+  height: 15%;
+  text-align: center;
+}
+
+.answer-field{
+  height: 15%;
+  text-align: center;
+  display: none;
+}
+
+.show-answer-container{
+  height: 10%;
+  text-align: center;
+}
+
+.team-button-container{
+  height: 10%;
+  width: 60%;
+  text-align: center;
+  position: fixed;
+  top: 70%;
+}
+
+.answered {
+  text-decoration: line-through;
+}
+
+.team-scores-container-2 {
+  display: inline-block;
+  background-color: yellow;
+}
+
+.team1-score-tracker {
+  display: inline-block;
+}
+
+.team2-score-tracker {
+  display: inline;
+}
+
+.team3-score-tracker {
+  display: inline-block;
+}
+
+.team4-score-tracker {
+  display: inline-block;
+}
+
+.team-1-name {
+  display: inline-block
+}
+
+.team-2-name {
+  display: inline-block
+}
+
+.team-3-name {
+  display: inline-block
+}
+
+.team-4-name {
+  display: inline-block
+}
