@@ -1,8 +1,21 @@
+var currentScoreAmount = 300;
+var team1Score = 0;
+var team2Score = 0;
+var team3Score = 0;
+var team4Score = 0;
+var pointsClicked = false;
+
 var DATA = [];
 
 function startGame() {
+  if (checkBoxesCheck() == true && teamNameCheck() == true) {
   loadCategoryTitles();
   displayGameBoard();
+  displayTeamNames();
+  }
+  else {
+    alert("Please select 5 categories and provide a team name in the team 1 and 2 fields.");
+  }
 }
 
 function loadCategoryTitles() {
@@ -25,6 +38,17 @@ function checkboxList() {
 function displayGameBoard() {
   $('.welcome-screen-container').css('display', 'none');
   $('.game-container').css('display', 'block');
+}
+
+function displayTeamNames() {
+  var team1name = $("#team-1-name-input").val() + ": ";
+  var team2name = $("#team-2-name-input").val() + ": ";
+  var team3name = $("#team-3-name-input").val() + ": ";
+  var team4name = $("#team-4-name-input").val() + ": ";
+  $(".team-1-name").text(team1name);
+  $(".team-2-name").text(team2name);
+  $(".team-3-name").text(team3name);
+  $(".team-4-name").text(team4name);
 }
 
 function authenticate(username, password) {
@@ -204,6 +228,49 @@ $(document).ready(function() {
       loadAdminQuestionForm(pointValue);
     }
   });
+  
+  $(".question-point-block").click(function() {
+  if ($(".question-window").css("display") == "none") {
+    var pointValue = $(this).text();
+    var categoryTemp = $(this).parent();
+    var category = $(categoryTemp).attr('id');
+    getQuestion(category, pointValue);
+  $(this).addClass('answered');
+  }
+  });
+  
+  $('.question-close').click(function() {
+    $('.question-window').css('display', 'none');
+    $('.answer-field').css('display', 'none');
+  });
+
+  $('.show-answer').click(function() {
+    $('.answer-field').css('display', 'block');
+  });
+  
+  $('#team-1-score-button').click( function() {
+    if (pointsClicked == false){
+    addPoints(1);
+    }
+  });
+  
+  $('#team-2-score-button').click( function() {
+    if (pointsClicked == false){
+    addPoints(2);
+    }
+  });
+  
+  $('#team-3-score-button').click( function() {
+    if (pointsClicked == false){
+    addPoints(3);
+    }
+  });
+  
+  $('#team-4-score-button').click( function() {
+    if (pointsClicked == false){
+    addPoints(4);
+    }
+  });
 
   $('#updateBtn').click(function() {
     if (fieldsHaveValues()) {
@@ -214,3 +281,75 @@ $(document).ready(function() {
     }
   });
 });
+
+function getQuestion(category, pointVal){
+    $.ajax({
+     url: "/jeopardy/" + category + "/" + pointVal,
+    success: function(data) {
+      console.log(data);
+      displayQuestion(data);
+    },
+    error: function(err) {
+      console.log('Error retrieving question: ' + JSON.stringify(err));
+   }
+  });
+}
+
+function displayQuestion(data){
+    currentScoreAmount = parseInt(data[0].pointValue);
+    pointsClicked = false;
+    console.log(currentScoreAmount);
+    $('.question-field').text(data[0].questionText);
+    $('.answer-field').text(data[0].answerText);
+    $('.question-window').css('display', 'block');
+}
+
+function addPoints(val) {
+    if (val == 1){
+        team1Score += currentScoreAmount;
+        console.log(team1Score);
+        $(".team1-score-tracker").text(JSON.stringify(team1Score));
+    }
+    else if (val == 2) {
+        team2Score += currentScoreAmount;
+        $(".team2-score-tracker").text(JSON.stringify(team2Score));
+    }
+    else if (val == 3) {
+        team3Score += currentScoreAmount;
+        $(".team3-score-tracker").text(JSON.stringify(team3Score));
+    }
+    else if (val == 4){
+        team4Score += currentScoreAmount;
+        $(".team4-score-tracker").text(JSON.stringify(team4Score));
+    }
+    else {
+        console.log("this function only takes values 1-4 as params");
+    }
+    pointsClicked = true;
+}
+
+function checkBoxesCheck() {
+  var counter = 0
+  var listOfIds = checkboxList()
+  for (var i = 0; i < 6; ++i){
+    var checkbox = listOfIds[i];
+    if ($(checkbox).prop('checked')) {
+      counter++;
+    }
+  }
+  if (counter == 5) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
+function teamNameCheck() {
+  if($("#team-1-name-input").val() && $("#team-2-name-input").val() != "" ){
+    return true;
+  }
+  else {
+    return false;
+  }
+}
