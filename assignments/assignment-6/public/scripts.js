@@ -8,7 +8,7 @@ var pointsClicked = false;
 var DATA = [];
 
 function startGame() {
-  if (checkBoxesCheck() == true && teamNameCheck() == true) {
+  if (checkBoxesCheck() && teamNameCheck()) {
   loadCategoryTitles();
   displayGameBoard();
   displayTeamNames();
@@ -45,10 +45,14 @@ function displayTeamNames() {
   var team2name = $("#team-2-name-input").val() + ": ";
   var team3name = $("#team-3-name-input").val() + ": ";
   var team4name = $("#team-4-name-input").val() + ": ";
-  $(".team-1-name").text(team1name);
-  $(".team-2-name").text(team2name);
-  $(".team-3-name").text(team3name);
-  $(".team-4-name").text(team4name);
+  $("#team-1-name-question").text(team1name);
+  $("#team-2-name-question").text(team2name);
+  $("#team-3-name-question").text(team3name);
+  $("#team-4-name-question").text(team4name);
+  $("#team-1-name-bottom").text(team1name);
+  $("#team-2-name-bottom").text(team2name);
+  $("#team-3-name-bottom").text(team3name);
+  $("#team-4-name-bottom").text(team4name);
 }
 
 function authenticate(username, password) {
@@ -207,7 +211,7 @@ $(document).ready(function() {
     console.log('next button clicked!');
     startGame();
   })
-  
+
   $('#loginBtn').click(function() {
     var username = $('#username').val();
     var password = $('#password').val();
@@ -228,17 +232,17 @@ $(document).ready(function() {
       loadAdminQuestionForm(pointValue);
     }
   });
-  
+
   $(".question-point-block").click(function() {
-  if ($(".question-window").css("display") == "none") {
-    var pointValue = $(this).text();
-    var categoryTemp = $(this).parent();
-    var category = $(categoryTemp).attr('id');
-    getQuestion(category, pointValue);
-  $(this).addClass('answered');
-  }
+    if ($(".question-window").css("display") == "none" && !$(this).hasClass("answered")) {
+      var pointValue = $(this).text();
+      var categoryTemp = $(this).parent();
+      var category = $(categoryTemp).attr('id');
+      getQuestion(category, pointValue);
+    $(this).addClass('answered');
+    }
   });
-  
+
   $('.question-close').click(function() {
     $('.question-window').css('display', 'none');
     $('.answer-field').css('display', 'none');
@@ -247,25 +251,25 @@ $(document).ready(function() {
   $('.show-answer').click(function() {
     $('.answer-field').css('display', 'block');
   });
-  
+
   $('#team-1-score-button').click( function() {
     if (pointsClicked == false){
     addPoints(1);
     }
   });
-  
+
   $('#team-2-score-button').click( function() {
     if (pointsClicked == false){
     addPoints(2);
     }
   });
-  
+
   $('#team-3-score-button').click( function() {
     if (pointsClicked == false){
     addPoints(3);
     }
   });
-  
+
   $('#team-4-score-button').click( function() {
     if (pointsClicked == false){
     addPoints(4);
@@ -308,19 +312,23 @@ function addPoints(val) {
     if (val == 1){
         team1Score += currentScoreAmount;
         console.log(team1Score);
-        $(".team1-score-tracker").text(JSON.stringify(team1Score));
+        $("#team-1-tracker-question").text(JSON.stringify(team1Score));
+        $("#team-1-tracker-bottom").text(JSON.stringify(team1Score));
     }
     else if (val == 2) {
         team2Score += currentScoreAmount;
-        $(".team2-score-tracker").text(JSON.stringify(team2Score));
+        $("#team-2-tracker-question").text(JSON.stringify(team2Score));
+        $("#team-2-tracker-bottom").text(JSON.stringify(team2Score));
     }
     else if (val == 3) {
         team3Score += currentScoreAmount;
-        $(".team3-score-tracker").text(JSON.stringify(team3Score));
+        $("#team-3-tracker-question").text(JSON.stringify(team3Score));
+        $("#team-3-tracker-bottom").text(JSON.stringify(team3Score));
     }
     else if (val == 4){
         team4Score += currentScoreAmount;
-        $(".team4-score-tracker").text(JSON.stringify(team4Score));
+        $("#team-4-tracker-question").text(JSON.stringify(team4Score));
+        $("#team-4-tracker-bottom").text(JSON.stringify(team4Score));
     }
     else {
         console.log("this function only takes values 1-4 as params");

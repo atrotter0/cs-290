@@ -226,18 +226,24 @@ footer {
 
 .question-close{
   text-align: right;
-  height: 10%
+  color: blue;
+  font-size: 4em;
+  padding: 20px;
+  cursor: pointer;
 }
 
 .question-field{
-  height: 15%;
   text-align: center;
+  font-size: 2em;
+  color: white;
+  padding: 25px;
 }
 
 .answer-field{
-  height: 15%;
   text-align: center;
   display: none;
+  font-size: 2em;
+  color: white;
 }
 
 .show-answer-container{
@@ -246,50 +252,41 @@ footer {
 }
 
 .team-button-container{
-  height: 10%;
   width: 60%;
+  margin: auto;
   text-align: center;
   position: fixed;
-  top: 70%;
+  top: 65%;
+  font-size: 1.5em;
+  color: white;
 }
 
 .answered {
   text-decoration: line-through;
 }
 
+.team-scores-container-1 {
+  display: inline-block;
+  color: black;
+  font-size: 2em;
+  padding-right: 25px;
+  margin: auto;
+  border-bottom: 2px black;
+  border-right: 2px black;
+  border-left: 2px black;
+}
+
 .team-scores-container-2 {
+  width: 10%;
   display: inline-block;
-  background-color: yellow;
+  background-color: gold;
+  padding: 25px;
 }
 
-.team1-score-tracker {
-  display: inline-block;
-}
-
-.team2-score-tracker {
-  display: inline;
-}
-
-.team3-score-tracker {
+.team-score-tracker-b {
   display: inline-block;
 }
 
-.team4-score-tracker {
-  display: inline-block;
-}
-
-.team-1-name {
-  display: inline-block
-}
-
-.team-2-name {
-  display: inline-block
-}
-
-.team-3-name {
-  display: inline-block
-}
-
-.team-4-name {
+.team-name-b {
   display: inline-block
 }
