@@ -1,0 +1,292 @@
+/* assignment 6 css */
+
+body {
+  font-family: Arial;
+}
+
+.container {
+  width: 100%;
+}
+
+.center {
+  text-align: center;
+}
+
+.welcome-screen {
+  width: 100%;
+  display: block;
+}
+
+header {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.content-block {
+  width: 50%;
+  border: 1px solid #000;
+  border-radius: 5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  min-height: 200px;
+  height: auto;
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.label-block {
+  display: inline-block;
+  line-height: 45px;
+  height: 45px;
+  vertical-align: top;
+}
+
+input[type=checkbox] {
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  border: 1px solid #000;
+  margin-right: 10px;
+  transition: background 0.5s, border-radius 1s;
+  border-radius: 2px;
+  background-color: #F5F5F5;
+}
+
+input[type="checkbox"]:checked{
+  background-color: #0d4aa5;
+  border-radius: 50px;
+}
+input[type="checkbox"]:focus{
+  outline: 0 none;
+}
+
+.check-label {
+  padding: 20px;
+}
+
+input[type=text], input[type=password] {
+  height: 45px;
+  width: 50%;
+  min-width: 180px;
+  padding-left: 15px;
+  margin-bottom: 20px;
+  border: 1px solid #000;
+  border-radius: 2px;
+  font-size: 1em;
+  background-color: #F5F5F5;
+}
+
+input[type=text]:focus, textarea:focus, input[type=password]:focus {
+  outline: none;
+  box-shadow: 2px 2px 2px #4e4e4e;
+}
+
+#submit-block {
+  width: 50%;
+  text-align: right;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+input[type=submit], button {
+  height: 45px;
+  width: 100px;
+  background-color: #fff;
+  border: 1px solid #000;
+  border-radius: 5px;
+  margin-right: 10px;
+  transition: box-shadow 0.5s, letter-spacing 1s, background 0.5s;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+input[type=submit]:hover, button:hover {
+  box-shadow: 2px 2px 2px #4e4e4e;
+  letter-spacing: 2px;
+  background-color: #0d4aa5;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+.game-container {
+  display: none;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.game-board {
+  width: 80%;
+  min-height: 500px;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+
+.category {
+  display: none;
+  width: 19.5%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.category-title-block, .question-point-block {
+  width: 100%;
+  background-color: #0d4aa5;
+  border: 1px solid #000;
+  height: 100px;
+  min-height: 100px;
+  line-height: 100px;
+  font-size: 2em;
+  color: #f9c402;
+}
+
+.question-point-block {
+  color: #fff;
+  cursor: pointer;
+}
+
+.content-block input[type=password] {
+  margin-bottom: 40px;
+}
+
+.admin-content-block {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  min-height: 10px;
+  height: auto;
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#admin-question-select-block {
+  display: none;
+}
+
+#admin-submit-block {
+  display: none;
+  width: 50%;
+  text-align: right;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#question-block {
+  display: none;
+}
+
+#admin-question-block {
+  width: 100%;
+}
+
+select {
+  height: 50px;
+  width: auto;
+  border: 1px solid #000;
+}
+
+.field-disabled {
+  cursor: not-allowed;
+}
+
+.login-logout-block {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+footer {
+  width: 100%;
+  background-color: #000;
+  height: 45px;
+  line-height: 45px;
+  color: #fff;
+  text-align: center;
+}
+
+.question-window{
+  height: 60%;
+  width: 60%;
+  z-index: 3;
+  position: fixed;
+  top: 20%;
+  left: 20%;
+  background-color: lightblue;
+  display: none;
+}
+
+.question-close{
+  text-align: right;
+  color: blue;
+  font-size: 4em;
+  padding: 20px;
+  cursor: pointer;
+}
+
+.question-field{
+  text-align: center;
+  font-size: 2em;
+  color: white;
+  padding: 25px;
+}
+
+.answer-field{
+  text-align: center;
+  display: none;
+  font-size: 2em;
+  color: white;
+}
+
+.show-answer-container{
+  height: 10%;
+  text-align: center;
+}
+
+.team-button-container{
+  width: 60%;
+  margin: auto;
+  text-align: center;
+  position: fixed;
+  top: 65%;
+  font-size: 1.5em;
+  color: white;
+}
+
+.answered {
+  text-decoration: line-through;
+}
+
+.team-scores-container-1 {
+  display: inline-block;
+  color: black;
+  font-size: 2em;
+  padding-right: 25px;
+  margin: auto;
+  border-bottom: 2px black;
+  border-right: 2px black;
+  border-left: 2px black;
+}
+
+.team-scores-container-2 {
+  width: 10%;
+  display: inline-block;
+  background-color: gold;
+  padding: 25px;
+}
+
+.team-score-tracker-b {
+  display: inline-block;
+}
+
+.team-name-b {
+  display: inline-block
+}
