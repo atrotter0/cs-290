@@ -8,6 +8,10 @@ body {
   width: 100%;
 }
 
+.center {
+  text-align: center;
+}
+
 .welcome-screen {
   width: 100%;
   display: block;
@@ -31,10 +35,6 @@ header {
   margin-right: auto;
 }
 
-.checkbox-block {
-
-}
-
 .label-block {
   display: inline-block;
   line-height: 45px;
@@ -52,6 +52,7 @@ input[type=checkbox] {
   margin-right: 10px;
   transition: background 0.5s, border-radius 1s;
   border-radius: 2px;
+  background-color: #F5F5F5;
 }
 
 input[type="checkbox"]:checked{
@@ -62,23 +63,23 @@ input[type="checkbox"]:focus{
   outline: 0 none;
 }
 
-label {
+.check-label {
   padding: 20px;
-  cursor: pointer;
 }
 
-input[type=text] {
+input[type=text], input[type=password] {
   height: 45px;
   width: 50%;
   min-width: 180px;
   padding-left: 15px;
-  margin-top: 20px;
+  margin-bottom: 20px;
   border: 1px solid #000;
   border-radius: 2px;
   font-size: 1em;
+  background-color: #F5F5F5;
 }
 
-input[type=text]:focus, textarea:focus {
+input[type=text]:focus, textarea:focus, input[type=password]:focus {
   outline: none;
   box-shadow: 2px 2px 2px #4e4e4e;
 }
@@ -92,7 +93,7 @@ input[type=text]:focus, textarea:focus {
   margin-bottom: 20px;
 }
 
-input[type=submit] {
+input[type=submit], button {
   height: 45px;
   width: 100px;
   background-color: #fff;
@@ -104,7 +105,7 @@ input[type=submit] {
   font-size: 1em;
 }
 
-input[type=submit]:hover {
+input[type=submit]:hover, button:hover {
   box-shadow: 2px 2px 2px #4e4e4e;
   letter-spacing: 2px;
   background-color: #0d4aa5;
@@ -148,6 +149,59 @@ input[type=submit]:hover {
 .question-point-block {
   color: #fff;
   cursor: pointer;
+}
+
+.content-block input[type=password] {
+  margin-bottom: 40px;
+}
+
+.admin-content-block {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  min-height: 10px;
+  height: auto;
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#admin-question-select-block {
+  display: none;
+}
+
+#admin-submit-block {
+  display: none;
+  width: 50%;
+  text-align: right;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#question-block {
+  display: none;
+}
+
+#admin-question-block {
+  width: 100%;
+}
+
+select {
+  height: 50px;
+  width: auto;
+  border: 1px solid #000;
+}
+
+.field-disabled {
+  cursor: not-allowed;
+}
+
+.login-logout-block {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 footer {

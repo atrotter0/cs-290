@@ -1,9 +1,9 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
   <head>
     <title>Assignment 6: Jeopardy Game</title>
     <link rel="stylesheet" type="text/css" href="styles/styles.css">
-    <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="scripts.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
@@ -11,43 +11,44 @@
     <div class="container">
       <div class="welcome-screen-container">
         <header><h1>Welcome to Jeopardy</h1></header>
+        <div class="login-logout-block"><a href="/login"><button>Login</button></a></div>
         <div id="categories" class="content-block">
           <h3>Select 5 Categories:</h3>
           <div id="choose-categories-block">
             <div class="checkbox-block">
               <input type="checkbox" name="html" id="html-checkbox">
               <div class="label-block">
-                <label for="html">HTML</label>
+                <label class="check-label"  for="html">HTML</label>
               </div>
             </div>
             <div class="checkbox-block">
               <input type="checkbox" name="css" id="css-checkbox">
               <div class="label-block">
-                <label for="css">CSS</label>
+                <label class="check-label"  for="css">CSS</label>
               </div>
             </div>
             <div class="checkbox-block">
               <input type="checkbox" name="js" id="js-checkbox">
               <div class="label-block">
-                <label for="js">JavaScript</label>
+                <label class="check-label" for="js">JavaScript</label>
               </div>
             </div>
             <div class="checkbox-block">
               <input type="checkbox" name="jquery" id="jquery-checkbox">
               <div class="label-block">
-                <label for="jquery">jQuery</label>
+                <label class="check-label" for="jquery">jQuery</label>
               </div>
             </div>
             <div class="checkbox-block">
               <input type="checkbox" name="node" id="node-checkbox">
               <div class="label-block">
-                <label for="node">Node</label>
+                <label class="check-label" for="node">Node</label>
               </div>
             </div>
             <div class="checkbox-block">
               <input type="checkbox" name="mongo" id="mongo-checkbox">
               <div class="label-block">
-                <label for="mongo">Mongo</label>
+                <label class="check-label" for="mongo">Mongo</label>
               </div>
             </div>
           </div>

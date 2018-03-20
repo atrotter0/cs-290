@@ -3,9 +3,9 @@ var mydb = require('./jeopardydb.js');
 var bodyParser = require('body-parser');
 var express = require('express');
 var app = express();
-//var cookieParser = require('cookie-parser');
+var cookieParser = require('cookie-parser');
 
-//app.use(cookieParser());
+app.use(cookieParser());
 
 app.use(bodyParser.json());
 
