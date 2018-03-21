@@ -64,7 +64,7 @@ exports.findAndLogin = function(req, res) {
         checkPassword(result, password, req, res);
       } else {
         console.log("danger will robinson, we did not find a user");
-        res.status(500).send();
+        res.status(400).send();
       }
     })
   });
@@ -76,7 +76,7 @@ function checkPassword(result, password, req, res) {
     res.send(200);
   } else {
     console.log('bad password');
-    res.status(500).send();
+    res.status(400).send();
   }
 }
 
