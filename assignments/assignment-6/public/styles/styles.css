@@ -213,7 +213,7 @@ footer {
   text-align: center;
 }
 
-.question-window{
+.question-window {
   height: 60%;
   width: 60%;
   z-index: 3;
@@ -224,7 +224,7 @@ footer {
   display: none;
 }
 
-..question-close{
+.question-close {
   text-align: right;
   color: blue;
   font-size: 4em;
@@ -232,26 +232,26 @@ footer {
   cursor: pointer;
 }
 
-.question-field{
+.question-field {
   text-align: center;
   font-size: 2em;
   color: white;
   padding: 25px;
 }
 
-.answer-field{
+.answer-field {
   text-align: center;
   display: none;
   font-size: 2em;
   color: white;
 }
 
-.show-answer-container{
+.show-answer-container {
   height: 10%;
   text-align: center;
 }
 
-.team-button-container{
+.team-button-container {
   width: 60%;
   margin: auto;
   text-align: center;
@@ -289,7 +289,7 @@ footer {
 }
 
 .team-name-b {
-  display: inline-block
+  display: inline-block;
 }
 
 #button-box {

@@ -1,4 +1,4 @@
-var currentScoreAmount = 300;
+var currentScoreAmount = 0;
 var team1Score = 0;
 var team2Score = 0;
 var team3Score = 0;
@@ -9,11 +9,10 @@ var DATA = [];
 
 function startGame() {
   if (checkBoxesCheck() && teamNameCheck()) {
-  loadCategoryTitles();
-  displayGameBoard();
-  displayTeamNames();
-  }
-  else {
+    loadCategoryTitles();
+    displayGameBoard();
+    displayTeamNames();
+  } else {
     alert("Please select 5 categories and provide a team name in the team 1 and 2 fields.");
   }
 }
@@ -41,16 +40,16 @@ function displayGameBoard() {
 }
 
 function displayTeamNames() {
-  var team1name = $("#team-1-name-input").val() + ": ";
-  var team2name = $("#team-2-name-input").val() + ": ";
-  var team3name = $("#team-3-name-input").val() + ": ";
-  var team4name = $("#team-4-name-input").val() + ": ";
-  if ($("#team-3-name-input").val() == ""){
+  var team1name = $("#team-1-name-input").val();
+  var team2name = $("#team-2-name-input").val();
+  var team3name = $("#team-3-name-input").val();
+  var team4name = $("#team-4-name-input").val();
+  if ($("#team-3-name-input").val() == "") {
     console.log("gothere");
     $('#team-3-score-container').css('display', 'none');
     $('#team-3-score-button').css('display', 'none');
   }
-  if ($("#team-4-name-input").val() == ""){
+  if ($("#team-4-name-input").val() == "") {
     $('#team-4-score-container').css('display', 'none');
     $('#team-4-score-button').css('display', 'none');
   }
@@ -215,11 +214,82 @@ function pullNewData() {
   loadAdminCategoryData(option);
 }
 
+function displayQuestion(data){
+  currentScoreAmount = parseInt(data[0].pointValue);
+  pointsClicked = false;
+  console.log(currentScoreAmount);
+  $('.question-field').text(data[0].questionText);
+  $('.answer-field').text(data[0].answerText);
+  $('.question-window').css('display', 'block');
+}
+
+function addPoints(val) {
+  if (val == 1) {
+    team1Score += currentScoreAmount;
+    console.log(team1Score);
+    $("#team-1-tracker-question").text(JSON.stringify(team1Score));
+    $("#team-1-tracker-bottom").text(JSON.stringify(team1Score));
+  } else if (val == 2) {
+    team2Score += currentScoreAmount;
+    $("#team-2-tracker-question").text(JSON.stringify(team2Score));
+    $("#team-2-tracker-bottom").text(JSON.stringify(team2Score));
+  } else if (val == 3) {
+    team3Score += currentScoreAmount;
+    $("#team-3-tracker-question").text(JSON.stringify(team3Score));
+    $("#team-3-tracker-bottom").text(JSON.stringify(team3Score));
+  } else if (val == 4){
+    team4Score += currentScoreAmount;
+    $("#team-4-tracker-question").text(JSON.stringify(team4Score));
+    $("#team-4-tracker-bottom").text(JSON.stringify(team4Score));
+  } else {
+    console.log("this function only takes values 1-4 as params");
+  }
+  pointsClicked = true;
+}
+
+function checkBoxesCheck() {
+  var counter = 0
+  var listOfIds = checkboxList()
+  for (var i = 0; i < 6; ++i){
+    var checkbox = listOfIds[i];
+    if ($(checkbox).prop('checked')) {
+      counter++;
+    }
+  }
+  
+  if (counter == 5) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
+function teamNameCheck() {
+  if($("#team-1-name-input").val() && $("#team-2-name-input").val() != "" ){
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function getQuestion(category, pointVal){
+  $.ajax({
+    url: "/jeopardy/" + category + "/" + pointVal,
+    success: function(data) {
+      console.log(data);
+      displayQuestion(data);
+    },
+    error: function(err) {
+      console.log('Error retrieving question: ' + JSON.stringify(err));
+    }
+  });
+}
+
 $(document).ready(function() {
   $('#nextBtn').click(function() {
-    console.log('next button clicked!');
     startGame();
-  })
+  });
 
   $('#loginBtn').click(function() {
     var username = $('#username').val();
@@ -248,7 +318,7 @@ $(document).ready(function() {
       var categoryTemp = $(this).parent();
       var category = $(categoryTemp).attr('id');
       getQuestion(category, pointValue);
-    $(this).addClass('answered');
+      $(this).addClass('answered');
     }
   });
 
@@ -263,25 +333,25 @@ $(document).ready(function() {
 
   $('#team-1-score-button').click( function() {
     if (pointsClicked == false){
-    addPoints(1);
+      addPoints(1);
     }
   });
 
   $('#team-2-score-button').click( function() {
     if (pointsClicked == false){
-    addPoints(2);
+      addPoints(2);
     }
   });
 
   $('#team-3-score-button').click( function() {
     if (pointsClicked == false){
-    addPoints(3);
+      addPoints(3);
     }
   });
 
   $('#team-4-score-button').click( function() {
     if (pointsClicked == false){
-    addPoints(4);
+      addPoints(4);
     }
   });
 
@@ -294,79 +364,3 @@ $(document).ready(function() {
     }
   });
 });
-
-function getQuestion(category, pointVal){
-    $.ajax({
-     url: "/jeopardy/" + category + "/" + pointVal,
-    success: function(data) {
-      console.log(data);
-      displayQuestion(data);
-    },
-    error: function(err) {
-      console.log('Error retrieving question: ' + JSON.stringify(err));
-   }
-  });
-}
-
-function displayQuestion(data){
-    currentScoreAmount = parseInt(data[0].pointValue);
-    pointsClicked = false;
-    console.log(currentScoreAmount);
-    $('.question-field').text(data[0].questionText);
-    $('.answer-field').text(data[0].answerText);
-    $('.question-window').css('display', 'block');
-}
-
-function addPoints(val) {
-    if (val == 1){
-        team1Score += currentScoreAmount;
-        console.log(team1Score);
-        $("#team-1-tracker-question").text(JSON.stringify(team1Score));
-        $("#team-1-tracker-bottom").text(JSON.stringify(team1Score));
-    }
-    else if (val == 2) {
-        team2Score += currentScoreAmount;
-        $("#team-2-tracker-question").text(JSON.stringify(team2Score));
-        $("#team-2-tracker-bottom").text(JSON.stringify(team2Score));
-    }
-    else if (val == 3) {
-        team3Score += currentScoreAmount;
-        $("#team-3-tracker-question").text(JSON.stringify(team3Score));
-        $("#team-3-tracker-bottom").text(JSON.stringify(team3Score));
-    }
-    else if (val == 4){
-        team4Score += currentScoreAmount;
-        $("#team-4-tracker-question").text(JSON.stringify(team4Score));
-        $("#team-4-tracker-bottom").text(JSON.stringify(team4Score));
-    }
-    else {
-        console.log("this function only takes values 1-4 as params");
-    }
-    pointsClicked = true;
-}
-
-function checkBoxesCheck() {
-  var counter = 0
-  var listOfIds = checkboxList()
-  for (var i = 0; i < 6; ++i){
-    var checkbox = listOfIds[i];
-    if ($(checkbox).prop('checked')) {
-      counter++;
-    }
-  }
-  if (counter == 5) {
-    return true;
-  }
-  else {
-    return false;
-  }
-}
-
-function teamNameCheck() {
-  if($("#team-1-name-input").val() && $("#team-2-name-input").val() != "" ){
-    return true;
-  }
-  else {
-    return false;
-  }
-}
