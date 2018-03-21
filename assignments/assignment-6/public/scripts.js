@@ -45,6 +45,15 @@ function displayTeamNames() {
   var team2name = $("#team-2-name-input").val() + ": ";
   var team3name = $("#team-3-name-input").val() + ": ";
   var team4name = $("#team-4-name-input").val() + ": ";
+  if ($("#team-3-name-input").val() == ""){
+    console.log("gothere");
+    $('#team-3-score-container').css('display', 'none');
+    $('#team-3-score-button').css('display', 'none');
+  }
+  if ($("#team-4-name-input").val() == ""){
+    $('#team-4-score-container').css('display', 'none');
+    $('#team-4-score-button').css('display', 'none');
+  }
   $("#team-1-name-question").text(team1name);
   $("#team-2-name-question").text(team2name);
   $("#team-3-name-question").text(team3name);
@@ -243,7 +252,7 @@ $(document).ready(function() {
     }
   });
 
-  $('.question-close').click(function() {
+  $('#button-box').click(function() {
     $('.question-window').css('display', 'none');
     $('.answer-field').css('display', 'none');
   });

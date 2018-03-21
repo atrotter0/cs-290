@@ -224,11 +224,11 @@ footer {
   display: none;
 }
 
-.question-close{
+..question-close{
   text-align: right;
   color: blue;
   font-size: 4em;
-  padding: 20px;
+  margin: 20px;
   cursor: pointer;
 }
 
@@ -281,6 +281,7 @@ footer {
   display: inline-block;
   background-color: gold;
   padding: 25px;
+  cursor: pointer;
 }
 
 .team-score-tracker-b {
@@ -289,4 +290,10 @@ footer {
 
 .team-name-b {
   display: inline-block
+}
+
+#button-box {
+  width: 95%;
+  text-align: right;
+  height: 25px;
 }
