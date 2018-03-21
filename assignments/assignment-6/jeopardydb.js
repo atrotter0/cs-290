@@ -25,11 +25,47 @@ db.open(function(err,db) {
 //preload questions db
 function populateQuestionsDB() {
   var questions = [
+    //html
     {category: "html", pointValue: "100", questionText: "What is on the first line of an HTML document?", answerText:"<!DOCTYPE html>"},
     {category: "html", pointValue: "200", questionText: "Another question2", answerText:"some answer2"},
     {category: "html", pointValue: "300", questionText: "Another question3", answerText:"some answer3"},
     {category: "html", pointValue: "400", questionText: "Another question4", answerText:"some answer4"},
-    {category: "html", pointValue: "500", questionText: "Another question5", answerText:"some answer5"}
+    {category: "html", pointValue: "500", questionText: "Another question5", answerText:"some answer5"},
+    
+    //css
+    {category: "css", pointValue: "100", questionText: "css question1", answerText:"css answer1"},
+    {category: "css", pointValue: "200", questionText: "Another question2", answerText:"some answer2"},
+    {category: "css", pointValue: "300", questionText: "Another question3", answerText:"some answer3"},
+    {category: "css", pointValue: "400", questionText: "Another question4", answerText:"some answer4"},
+    {category: "css", pointValue: "500", questionText: "Another question5", answerText:"some answer5"},
+    
+    //js
+    {category: "js", pointValue: "100", questionText: "js question1", answerText:"js answer1"},
+    {category: "js", pointValue: "200", questionText: "Another question2", answerText:"some answer2"},
+    {category: "js", pointValue: "300", questionText: "Another question3", answerText:"some answer3"},
+    {category: "js", pointValue: "400", questionText: "Another question4", answerText:"some answer4"},
+    {category: "js", pointValue: "500", questionText: "Another question5", answerText:"some answer5"},
+    
+    //jquery
+    {category: "jquery", pointValue: "100", questionText: "jquery question1", answerText:"jquery answer1"},
+    {category: "jquery", pointValue: "200", questionText: "Another question2", answerText:"some answer2"},
+    {category: "jquery", pointValue: "300", questionText: "Another question3", answerText:"some answer3"},
+    {category: "jquery", pointValue: "400", questionText: "Another question4", answerText:"some answer4"},
+    {category: "jquery", pointValue: "500", questionText: "Another question5", answerText:"some answer5"},
+    
+    //node
+    {category: "node", pointValue: "100", questionText: "node quetion1", answerText:"node answer1"},
+    {category: "node", pointValue: "200", questionText: "Another question2", answerText:"some answer2"},
+    {category: "node", pointValue: "300", questionText: "Another question3", answerText:"some answer3"},
+    {category: "node", pointValue: "400", questionText: "Another question4", answerText:"some answer4"},
+    {category: "node", pointValue: "500", questionText: "Another question5", answerText:"some answer5"},
+    
+    //mongo
+    {category: "mongo", pointValue: "100", questionText: "mongo question1", answerText:"mongo answer"},
+    {category: "mongo", pointValue: "200", questionText: "Another question2", answerText:"some answer2"},
+    {category: "mongo", pointValue: "300", questionText: "Another question3", answerText:"some answer3"},
+    {category: "mongo", pointValue: "400", questionText: "Another question4", answerText:"some answer4"},
+    {category: "mongo", pointValue: "500", questionText: "Another question5", answerText:"some answer5"}
   ];
   db.collection('questions', function(err, collection) {
     collection.insert(questions, {safe:true}, function(err, result) {
