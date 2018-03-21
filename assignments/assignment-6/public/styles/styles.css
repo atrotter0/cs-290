@@ -212,3 +212,95 @@ footer {
   color: #fff;
   text-align: center;
 }
+
+.question-window {
+  height: 500px;
+  width: 60%;
+  z-index: 3;
+  position: fixed;
+  top: 20%;
+  left: 20%;
+  background-color: lightblue;
+  display: none;
+}
+
+.question-close {
+  text-align: right;
+  color: blue;
+  font-size: 4em;
+  margin: 20px;
+  cursor: pointer;
+}
+
+.question-field {
+  text-align: center;
+  font-size: 2em;
+  color: white;
+  padding: 25px;
+}
+
+.answer-field {
+  text-align: center;
+  display: none;
+  font-size: 2em;
+  color: white;
+}
+
+.show-answer-container {
+  height: 10%;
+  text-align: center;
+}
+
+.team-button-container {
+  width: 60%;
+  margin: auto;
+  text-align: center;
+  position: fixed;
+  top: 65%;
+  font-size: 1.5em;
+  color: white;
+}
+
+.answered {
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
+
+.team-scores-container {
+  width: 99%;
+  border-bottom: 1px solid #000;
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+}
+
+.team-scores-container-1 {
+  margin-left: auto;
+  margin-right: auto;
+  width: 24%;
+  display: inline-block;
+  text-align: center;
+  color: black;
+  font-size: 2em;
+}
+
+.team-scores-container-2 {
+  width: 10%;
+  display: inline-block;
+  background-color: gold;
+  padding: 25px;
+  cursor: pointer;
+}
+
+.team-score-tracker-b {
+  display: inline-block;
+}
+
+.team-name-b {
+  display: inline-block;
+}
+
+#button-box {
+  width: 95%;
+  text-align: right;
+  height: 25px;
+}
