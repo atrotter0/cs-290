@@ -214,7 +214,7 @@ footer {
 }
 
 .question-window {
-  height: 60%;
+  height: 500px;
   width: 60%;
   z-index: 3;
   position: fixed;
